@@ -1,0 +1,1337 @@
+<!--
+  evergrate｜磨蓉碟食譜（廣東話）單頁網站（已內置圖片）
+  - 圖片全權交俾我：用「內置 SVG data URI」生成插畫/相片風格 placeholder
+  - 優點：無需外部圖片／即開即睇／可離線
+  - 之後你想換成真相：將 <img ... data-role="autoimg"> 換成你自己圖片 URL/檔案即可
+-->
+<!doctype html>
+<html lang="zh-HK">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="evergrate 磨蓉碟食譜（廣東話）｜轉個手就整到新鮮餸" />
+  <title>evergrate｜磨蓉碟食譜（廣東話）</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --panel:#0f1620;
+      --panel2:#0c131c;
+      --text:#eaf0f6;
+      --muted:#aab8c5;
+      --line:rgba(255,255,255,.10);
+      --accent:#63e6be;
+      --accent2:#74c0fc;
+
+      --radius:18px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --container: 1120px;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    html{ background: var(--bg); }
+    body{
+      margin:0;
+      font-family:"Noto Sans TC", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
+      min-height:100vh;
+      position:relative;
+      color:var(--text);
+      line-height:1.7;
+      font-size:17px;
+      text-rendering:optimizeLegibility;
+      -webkit-font-smoothing:antialiased;
+      background: transparent;
+    }
+
+    /* 重要：用 fixed 背景層，確保去到最底（亦解 iOS overscroll 露白底） */
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      z-index:-1;
+      pointer-events:none;
+      background:
+        radial-gradient(1200px 600px at 20% -10%, rgba(116,192,252,.20), transparent 60%),
+        radial-gradient(900px 500px at 80% 0%, rgba(99,230,190,.18), transparent 60%),
+        var(--bg);
+    }
+
+    body.hc::before{
+      background:
+        radial-gradient(1200px 600px at 20% -10%, rgba(154,215,255,.22), transparent 60%),
+        radial-gradient(900px 500px at 80% 0%, rgba(125,255,207,.20), transparent 60%),
+        var(--bg);
+    }
+
+    a{ color:inherit; text-decoration:none; }
+      line-height:1.6;
+    }
+
+    a{ color:inherit; text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+
+    .container{
+      width:min(var(--container), calc(100% - 40px));
+      margin-inline:auto;
+    }
+
+    .skip-link{
+      position:absolute;
+      left:-999px;
+      top:10px;
+      background:#fff;
+      color:#000;
+      padding:10px 12px;
+      border-radius:10px;
+      z-index:9999;
+    }
+    .skip-link:focus{ left:10px; }
+
+    .site-header{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      backdrop-filter: blur(10px);
+      background: rgba(11,15,20,.55);
+      border-bottom:1px solid var(--line);
+    }
+
+    .header-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:14px 0;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:200px;
+    }
+    .brand-mark{
+      width:40px; height:40px;
+      border-radius:12px;
+      display:grid; place-items:center;
+      background: linear-gradient(135deg, rgba(99,230,190,.25), rgba(116,192,252,.20));
+      border:1px solid var(--line);
+      font-weight:800;
+    }
+    .brand-name{ font-weight:800; letter-spacing:.2px; }
+    .brand-sub{ font-size:12px; color:var(--muted); margin-top:2px; }
+
+    .nav{
+      display:flex;
+      gap:14px;
+      align-items:center;
+    }
+    .nav a{ color:var(--muted); font-weight:600; }
+    .nav a:hover{ color:var(--text); text-decoration:none; }
+
+    .nav-toggle{
+      display:none;
+      width:44px; height:44px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      cursor:pointer;
+    }
+    .nav-toggle span{
+      display:block;
+      width:18px;
+      height:2px;
+      background:var(--text);
+      margin:4px auto;
+      opacity:.9;
+    }
+
+    .mobile-nav{
+      border-top:1px solid var(--line);
+      background: rgba(11,15,20,.75);
+      padding:12px 20px 16px;
+    }
+    .mobile-nav a{
+      display:block;
+      padding:10px 6px;
+      color:var(--muted);
+      font-weight:600;
+    }
+    .mobile-nav a:hover{ color:var(--text); text-decoration:none; }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(99,230,190,.35);
+      background: rgba(99,230,190,.16);
+      color:var(--text);
+      font-weight:700;
+      text-decoration:none;
+      cursor:pointer;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(99,230,190,.22);
+      text-decoration:none;
+    }
+    .btn--ghost{
+      border-color: var(--line);
+      background: rgba(255,255,255,.04);
+    }
+    .btn--ghost:hover{
+      background: rgba(255,255,255,.06);
+    }
+
+    .hero{ padding: 56px 0 26px; }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:28px;
+      align-items:start;
+    }
+    .eyebrow{
+      color:var(--muted);
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      font-size:12px;
+      margin:0 0 8px;
+    }
+    .hero h1{
+      margin:0 0 12px;
+      line-height:1.15;
+      font-size: clamp(30px, 4vw, 48px);
+    }
+    .lead{ color:var(--muted); font-size:16px; margin:0 0 18px; }
+    .hero-cta{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:18px; }
+    .hero-tagline{ display:flex; gap:8px; flex-wrap:wrap; }
+    .tag{
+      font-size:12px;
+      color:var(--muted);
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      padding:6px 10px;
+      border-radius:999px;
+    }
+
+    .section{ padding: 48px 0; }
+    .section--alt{
+      background: linear-gradient(180deg, rgba(255,255,255,.03), transparent);
+      border-top:1px solid var(--line);
+      border-bottom:1px solid var(--line);
+    }
+    .section-head{ margin-bottom:18px; }
+    .section-head h2{ margin:0 0 8px; font-size:28px; }
+    .section-head p{ margin:0; color:var(--muted); }
+
+    .card{
+      border:1px solid var(--line);
+      background: rgba(15,22,32,.55);
+      border-radius: var(--radius);
+      padding:18px;
+      box-shadow: var(--shadow);
+    }
+    .card.soft{ background: rgba(15,22,32,.35); }
+
+    .grid-3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+    }
+    .grid-2{
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap:14px;
+    }
+
+    .pill-list{
+      list-style:none;
+      padding:0;
+      margin:12px 0 0;
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+    .pill-list li{
+      font-size:13px;
+      color:var(--muted);
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      padding:6px 10px;
+      border-radius:999px;
+    }
+
+    .steps{
+      list-style:none;
+      padding:0;
+      margin:0;
+      display:grid;
+      gap:12px;
+    }
+    .step{
+      display:grid;
+      grid-template-columns: 44px 1fr;
+      gap:14px;
+      align-items:start;
+      padding:16px;
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background: rgba(15,22,32,.35);
+    }
+    .step-num{
+      width:44px; height:44px;
+      display:grid; place-items:center;
+      border-radius:14px;
+      border:1px solid rgba(116,192,252,.35);
+      background: rgba(116,192,252,.14);
+      font-weight:800;
+    }
+    .step h3{ margin:0 0 6px; }
+    .step p{ margin:0; color:var(--muted); }
+
+    /* Images */
+    .img-card{
+      border:1px solid var(--line);
+      background: rgba(15,22,32,.45);
+      border-radius: var(--radius);
+      overflow:hidden;
+      box-shadow: var(--shadow);
+    }
+    .img{
+      width:100%;
+      height:100%;
+      display:block;
+      object-fit:cover;
+    }
+    .img--hero{ height: 310px; }
+    .img--side{ height: 280px; }
+    .img--tile{ height: 180px; border-radius:14px; }
+
+    .fineprint{ color:var(--muted); font-size:12px; margin:10px 0 0; }
+
+    .recipes-grid{
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap:14px;
+    }
+    .recipe-top{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:12px;
+    }
+    .recipe h3{ margin:0; font-size:20px; }
+    .recipe-meta{ display:flex; gap:8px; flex-wrap:wrap; }
+    .badge{
+      font-size:12px;
+      color:rgba(234,240,246,.95);
+      border:1px solid rgba(99,230,190,.28);
+      background: rgba(99,230,190,.10);
+      padding:6px 10px;
+      border-radius:999px;
+    }
+
+    .recipe h4{
+      margin:14px 0 8px;
+      font-size:14px;
+      color: rgba(234,240,246,.95);
+      letter-spacing:.02em;
+    }
+    .list{ margin:0; padding-left:18px; color:var(--muted); }
+    .list li{ margin:6px 0; }
+
+    .note{
+      border:1px solid rgba(116,192,252,.25);
+      background: rgba(116,192,252,.10);
+      color: rgba(234,240,246,.92);
+      padding:10px 12px;
+      border-radius:14px;
+      font-size:13px;
+    }
+
+    .split{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:14px;
+      align-items:stretch;
+    }
+
+    .checklist{
+      list-style:none;
+      padding:0;
+      margin:14px 0 0;
+      color:var(--muted);
+    }
+    .checklist li{
+      padding-left:24px;
+      position:relative;
+      margin:10px 0;
+    }
+    .checklist li::before{
+      content:"✓";
+      position:absolute;
+      left:0;
+      top:0;
+      color:var(--accent);
+      font-weight:800;
+    }
+
+    .cta-row{ display:flex; gap:10px; margin-top:16px; flex-wrap:wrap; }
+
+    .form{ margin-top:14px; }
+    .label{ display:block; font-weight:700; margin-bottom:6px; }
+    .form-row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    input[type="email"]{
+      flex:1;
+      min-width:240px;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color:var(--text);
+      outline:none;
+    }
+    input[type="email"]::placeholder{ color: rgba(170,184,197,.65); }
+    input[type="email"]:focus{
+      border-color: rgba(116,192,252,.45);
+    }
+
+    .toast{
+      margin-top:10px;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid rgba(99,230,190,.25);
+      background: rgba(99,230,190,.10);
+      color: rgba(234,240,246,.95);
+      font-size:13px;
+    }
+
+    .qr-row{
+      display:flex;
+      gap:14px;
+      align-items:center;
+      margin-top:14px;
+    }
+    .qr-box{
+      width:110px; height:110px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+      display:grid;
+      place-items:center;
+      color:var(--muted);
+      overflow:hidden;
+    }
+
+    .muted{ color:var(--muted); }
+    .price{ margin:10px 0 14px; }
+    .price .now{ font-size:22px; font-weight:900; }
+    .price .was{
+      margin-left:10px;
+      color: rgba(170,184,197,.75);
+      text-decoration: line-through;
+    }
+
+    .code-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size:16px;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+    }
+
+    .footer-cta{
+      margin-top:14px;
+      display:flex;
+      justify-content:center;
+    }
+    .mini-note{
+      color:var(--muted);
+      font-size:13px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      padding:12px 14px;
+      border-radius:14px;
+      width:min(760px, 100%);
+    }
+
+    .site-footer{
+      padding:26px 0 40px;
+    }
+    .footer-inner{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:16px;
+      border-top:1px solid var(--line);
+      padding-top:18px;
+    }
+    .footer-links{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      color:var(--muted);
+    }
+    .footer-links a:hover{ color:var(--text); text-decoration:none; }
+
+    @media (max-width: 920px){
+      .hero-grid, .split{ grid-template-columns: 1fr; }
+      .recipes-grid{ grid-template-columns: 1fr; }
+      .grid-3{ grid-template-columns: 1fr; }
+      .grid-2{ grid-template-columns: 1fr; }
+      .nav{ display:none; }
+      .nav-toggle{ display:block; }
+      .img--hero{ height: 240px; }
+      .img--side{ height: 220px; }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">跳到內容</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">e</span>
+        <div class="brand-text">
+          <div class="brand-name">evergrate</div>
+          <div class="brand-sub">磨蓉碟食譜（廣東話）</div>
+        </div>
+      </div>
+
+      <nav class="nav" aria-label="主選單">
+        <a href="#how">點用</a>
+        <a href="#recipes">食譜</a>
+        <a href="#dip-oven">Dip &amp; 焗盤</a>
+        <a href="#coupon" class="btn btn--ghost">優惠券</a>
+      </nav>
+
+      <button class="nav-toggle" id="navToggle" aria-label="打開選單" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <div class="mobile-nav" id="mobileNav" hidden>
+      <a href="#how">點用</a>
+      <a href="#recipes">食譜</a>
+      <a href="#dip-oven">Dip &amp; 焗盤</a>
+      <a href="#coupon">優惠券</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Rezepte für die Tellerreibe</p>
+          <h1>轉個手就整到新鮮餸。</h1>
+          <p class="lead">
+            evergrate 磨蓉碟：磨蒜、磨薑、磨芝士、磨香料……由準備到上碟，一條龍搞掂。
+          </p>
+          <div class="hero-cta">
+            <a class="btn" href="#recipes">即刻睇食譜</a>
+            <a class="btn btn--ghost" href="#what-can-grate">可以磨咩？</a>
+          </div>
+
+          <div class="hero-tagline">
+            <span class="tag">放上磨蓉板</span>
+            <span class="tag">預備</span>
+            <span class="tag">開始！</span>
+          </div>
+        </div>
+
+        <div class="hero-media">
+          <div class="img-card">
+            <img class="img img--hero" data-role="autoimg" data-scene="hero" alt="evergrate 磨蓉碟與新鮮食材（插畫）" />
+          </div>
+          <p class="fineprint">
+            圖片已內置（SVG 插畫）。日後你想換真相，直接改呢個 <code>&lt;img&gt;</code> 嘅 <code>src</code>。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT CAN GRATE -->
+    <section class="section" id="what-can-grate">
+      <div class="container">
+        <header class="section-head">
+          <h2>可以磨咩？（我哋試過 OK）</h2>
+          <p>以下係常見材料分類，方便你即刻上手。</p>
+        </header>
+
+        <div class="grid-3">
+          <div class="card">
+            <h3>蔬菜</h3>
+            <div class="img-card" style="margin-top:12px;">
+              <img class="img img--tile" data-role="autoimg" data-scene="veg" alt="可磨蔬菜（插畫）" />
+            </div>
+            <ul class="pill-list">
+              <li>蒜頭</li><li>薑</li><li>紅蘿蔔</li><li>薯仔</li><li>青瓜</li><li>辣根</li><li>辣椒</li><li>甜椒</li><li>番茄</li><li>翠玉瓜</li><li>洋蔥</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>水果</h3>
+            <div class="img-card" style="margin-top:12px;">
+              <img class="img img--tile" data-role="autoimg" data-scene="fruit" alt="可磨水果（插畫）" />
+            </div>
+            <ul class="pill-list">
+              <li>蘋果</li><li>梨</li><li>橙</li><li>檸檬</li><li>青檸</li><li>蜜桃</li><li>士多啤梨</li><li>奇異果</li><li>牛油果</li><li>木瓜</li><li>蜜瓜</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>其他</h3>
+            <div class="img-card" style="margin-top:12px;">
+              <img class="img img--tile" data-role="autoimg" data-scene="misc" alt="可磨其他材料（插畫）" />
+            </div>
+            <ul class="pill-list">
+              <li>Parmesan 芝士</li><li>麵包</li><li>可可</li><li>肉豆蔻</li><li>巴西果仁</li><li>杏仁</li><li>朱古力</li><li>餅乾</li><li>東加豆</li><li>合桃</li><li>肉桂</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="section section--alt" id="how">
+      <div class="container">
+        <header class="section-head">
+          <h2>點用？（3 步）</h2>
+          <p>濕料／乾料處理唔同：濕料先弄濕表面，乾料就直接磨。</p>
+        </header>
+
+        <div class="split" style="align-items:start;">
+          <ol class="steps" style="margin:0;">
+            <li class="step">
+              <div class="step-num">1</div>
+              <div class="step-body">
+                <h3>準備</h3>
+                <p>
+                  濕身材料（蒜、薑、洋蔥）：先用少少水把磨板表面弄濕；加一滴油或檸檬汁都得。<br/>
+                  乾身材料（肉豆蔻、Parmesan）：直接用乾磨板。
+                </p>
+              </div>
+            </li>
+
+            <li class="step">
+              <div class="step-num">2</div>
+              <div class="step-body">
+                <h3>磨</h3>
+                <p>輕力按住，打圈磨；橫磨直磨都可以，睇你手勢。</p>
+              </div>
+            </li>
+
+            <li class="step">
+              <div class="step-num">3</div>
+              <div class="step-body">
+                <h3>收集</h3>
+                <p>用刷／掃輕輕一掃，就可以把磨出嚟嘅材料掃返落嚟，乾淨利落。</p>
+              </div>
+            </li>
+          </ol>
+
+          <div class="img-card">
+            <img class="img img--side" data-role="autoimg" data-scene="how" alt="磨蓉碟使用步驟示意（插畫）" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RECIPES -->
+    <section class="section" id="recipes">
+      <div class="container">
+        <header class="section-head">
+          <h2>食譜</h2>
+          <p>每款都加咗插畫圖；你想換真相就直接改 <code>src</code>。</p>
+        </header>
+
+        <div class="recipes-grid">
+          <!-- Recipe: Pumpkin Soup -->
+          <article class="recipe card" id="r-pumpkin">
+            <div class="recipe-top">
+              <h3>南瓜湯</h3>
+              <div class="recipe-meta">
+                <span class="badge">重點磨蓉：蒜／薑／肉豆蔻</span>
+              </div>
+            </div>
+
+            <div class="img-card" style="margin-bottom:12px;">
+              <img class="img img--tile" data-role="autoimg" data-scene="pumpkin" alt="南瓜湯（插畫）" />
+            </div>
+
+            <div class="recipe-body">
+              <h4>材料</h4>
+              <ul class="list">
+                <li>1 個細 Hokkaido 或 Butternut 南瓜</li>
+                <li>3 條紅蘿蔔</li>
+                <li>1 個洋蔥</li>
+                <li>2 瓣蒜頭（磨蓉）</li>
+                <li>約 5 cm 薑（磨蓉）</li>
+                <li>500 ml 菜湯／蔬菜高湯</li>
+                <li>200 ml 椰奶</li>
+                <li>肉豆蔻（即磨）</li>
+                <li>鹽、胡椒、少少豉油、少少油</li>
+              </ul>
+
+              <h4>做法</h4>
+              <ol class="list">
+                <li>南瓜處理好切粒；紅蘿蔔切粒；洋蔥去皮切四份。</li>
+                <li>煲加油炒洋蔥至透明；落南瓜＋紅蘿蔔炒約 15 分鐘。</li>
+                <li>倒入菜湯，小火煮約 20 分鐘至變軟，打至幼滑。</li>
+                <li>加椰奶；拌入磨蓉蒜同薑。</li>
+                <li>加即磨肉豆蔻同豉油調味，再以鹽胡椒校味，煮滾一次。</li>
+                <li>可用椰奶、香草、南瓜籽裝飾。</li>
+              </ol>
+            </div>
+          </article>
+
+          <!-- Recipe: Mashed Potatoes -->
+          <article class="recipe card" id="r-mash">
+            <div class="recipe-top">
+              <h3>薯蓉／薯仔蓉</h3>
+              <div class="recipe-meta">
+                <span class="badge">重點磨蓉：肉豆蔻（可加蒜）</span>
+              </div>
+            </div>
+
+            <div class="img-card" style="margin-bottom:12px;">
+              <img class="img img--tile" data-role="autoimg" data-scene="mash" alt="薯蓉（插畫）" />
+            </div>
+
+            <div class="recipe-body">
+              <h4>材料</h4>
+              <ul class="list">
+                <li>1 kg 粉質薯仔</li>
+                <li>100 ml 牛奶（按稀稠加減）</li>
+                <li>150 g 牛油</li>
+                <li>肉豆蔻（即磨）</li>
+                <li>（可選）1 瓣蒜頭（磨蓉）</li>
+              </ul>
+
+              <h4>做法</h4>
+              <ol class="list">
+                <li>薯仔去皮切四份洗淨，加水煮滾。</li>
+                <li>約 20 分鐘熟，倒走水，薯仔放返入煲。</li>
+                <li>落牛油＋少少牛奶，用壓蓉器壓成蓉；想稀就再加牛奶。</li>
+                <li>即磨肉豆蔻拌匀；鹽胡椒調味。（可加磨蓉蒜）</li>
+              </ol>
+            </div>
+          </article>
+
+          <!-- Recipe: Carrot Tart -->
+          <article class="recipe card" id="r-tart">
+            <div class="recipe-top">
+              <h3>紅蘿蔔鹹撻</h3>
+              <div class="recipe-meta">
+                <span class="badge">重點磨蓉：蒜（拌橄欖油）</span>
+              </div>
+            </div>
+
+            <div class="img-card" style="margin-bottom:12px;">
+              <img class="img img--tile" data-role="autoimg" data-scene="tart" alt="紅蘿蔔鹹撻（插畫）" />
+            </div>
+
+            <div class="recipe-body">
+              <h4>材料</h4>
+              <ul class="list">
+                <li>250 g Spelt flour（Dinkelmehl）</li>
+                <li>125 g 凍牛油</li>
+                <li>1 隻蛋黃</li>
+                <li>150 g Schmand（酸忌廉）或忌廉芝士</li>
+                <li>5–6 條中型紅蘿蔔（切薄片）</li>
+                <li>2 瓣蒜頭（磨蓉）</li>
+                <li>3 湯匙橄欖油</li>
+                <li>鹽、胡椒</li>
+              </ul>
+
+              <h4>做法</h4>
+              <ol class="list">
+                <li>撻皮：粉＋牛油＋蛋黃＋水＋鹽搓成麵糰；雪 30 分鐘。</li>
+                <li>擀開入撻模，180°C 預焗 15 分鐘。</li>
+                <li>Schmand/忌廉芝士用鹽胡椒調味，塗上撻皮。</li>
+                <li>紅蘿蔔縱切薄片鋪面。</li>
+                <li>蒜磨蓉拌橄欖油，掃喺紅蘿蔔面。</li>
+                <li>180°C 焗 25–30 分鐘至金黃。</li>
+              </ol>
+            </div>
+          </article>
+
+          <!-- Recipe: Thai Curry -->
+          <article class="recipe card" id="r-thai">
+            <div class="recipe-top">
+              <h3>泰式咖喱（豆腐版）</h3>
+              <div class="recipe-meta">
+                <span class="badge">重點磨蓉：蒜／薑</span>
+              </div>
+            </div>
+
+            <div class="img-card" style="margin-bottom:12px;">
+              <img class="img img--tile" data-role="autoimg" data-scene="thai" alt="泰式咖喱（插畫）" />
+            </div>
+
+            <div class="recipe-body">
+              <h4>材料</h4>
+              <ul class="list">
+                <li>200 g 豆腐</li>
+                <li>1 湯匙植物油</li>
+                <li>1 瓣蒜頭（磨蓉）</li>
+                <li>約 5 cm 薑（磨蓉）</li>
+                <li>1 湯匙咖喱醬（Curry paste）</li>
+                <li>400 ml 椰奶</li>
+                <li>1 隻紅甜椒</li>
+                <li>200 g 野生西蘭花／苗西蘭花</li>
+                <li>50 g 菠菜</li>
+                <li>青檸汁、芫荽、鹽</li>
+              </ul>
+
+              <h4>做法</h4>
+              <ol class="list">
+                <li>熱鑊落油，豆腐切粒煎到金黃，盛起。</li>
+                <li>同鑊落咖喱醬炒香約 3 分鐘；加入磨蓉蒜同薑。</li>
+                <li>甜椒同西蘭花切細，落鑊炒約 5 分鐘。</li>
+                <li>倒入椰奶，小火煮 5–10 分鐘；最後落菠菜拌匀。</li>
+                <li>加青檸汁同鹽調味；配豆腐同芫荽上碟，最好配飯。</li>
+              </ol>
+            </div>
+          </article>
+
+          <!-- Recipe: Lebkuchen -->
+          <article class="recipe card" id="r-lebkuchen">
+            <div class="recipe-top">
+              <h3>德式香料薑餅（盤焗）</h3>
+              <div class="recipe-meta">
+                <span class="badge">重點磨蓉：新鮮薑／（可可／朱古力）</span>
+              </div>
+            </div>
+
+            <div class="img-card" style="margin-bottom:12px;">
+              <img class="img img--tile" data-role="autoimg" data-scene="lebkuchen" alt="德式香料薑餅（插畫）" />
+            </div>
+
+            <div class="recipe-body">
+              <div class="note">
+                <strong>小提示：</strong>PDF 文字提到「牛奶」同「朱古力糖霜」，但材料表冇寫份量；你可以按實際麵糊稠度同糖霜需要自行調整。
+              </div>
+
+              <h4>材料</h4>
+              <ul class="list">
+                <li>200 g 牛油</li>
+                <li>150 g 糖</li>
+                <li>2 隻蛋</li>
+                <li>1 包泡打粉</li>
+                <li>350 g 麵粉</li>
+                <li>3 湯匙 薑餅香料粉（Lebkuchen spice）</li>
+                <li>100 g 切碎杏仁</li>
+                <li>3 湯匙 甜菜糖漿（Sugar beet syrup）</li>
+                <li>3 湯匙 可可粉</li>
+                <li>約 5 cm 新鮮薑（磨蓉）</li>
+              </ul>
+
+              <h4>做法</h4>
+              <ol class="list">
+                <li>牛油＋糖打至幼滑；逐隻加蛋拌匀。</li>
+                <li>加入杏仁同糖漿略拌。</li>
+                <li>麵粉同（牛奶）交替加入拌至幼滑；再加入可可、香料粉同磨蓉薑。</li>
+                <li>倒入已搽油／鋪紙嘅烤盤，200°C 焗約 25 分鐘，放涼。</li>
+                <li>用（朱古力＋牛油）隔水溶做糖霜，淋面抹平，撒杏仁裝飾。</li>
+              </ol>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- DIP & OVEN -->
+    <section class="section section--alt" id="dip-oven">
+      <div class="container split">
+        <div>
+          <h2>Dip &amp; 焗盤：磨・拌・焗・上枱</h2>
+          <p class="lead">
+            XL 加大磨蓉面，適合做醬、醃料、焗菜：Tzatziki、Bruschetta、Guacamole，或者焗 feta、蝦、魚、肉、蔬菜都得。
+          </p>
+          <ul class="checklist">
+            <li>磨蓉＋即拌：少洗幾隻碗</li>
+            <li>一盤到底：入焗爐／直接上枱</li>
+            <li>大件食材／大份量都 handle 到</li>
+          </ul>
+
+          <div class="cta-row">
+            <a class="btn" href="#coupon">睇優惠券</a>
+            <a class="btn btn--ghost" href="#newsletter">訂閱食譜</a>
+          </div>
+        </div>
+
+        <div class="img-card">
+          <img class="img img--side" data-role="autoimg" data-scene="dip" alt="Dip & 焗盤示意（插畫）" />
+        </div>
+      </div>
+    </section>
+
+    <!-- NEWSLETTER / IG -->
+    <section class="section" id="newsletter">
+      <div class="container split">
+        <div class="card soft">
+          <h2>將磨蓉碟嘅實力榨到盡</h2>
+          <p class="lead">訂閱 Newsletter，食譜直接送上門（即：送入你 inbox）。</p>
+
+          <form class="form" id="newsletterForm">
+            <label class="label" for="email">電郵地址</label>
+            <div class="form-row">
+              <input id="email" name="email" type="email" placeholder="name@example.com" autocomplete="email" required />
+              <button class="btn" type="submit">訂閱</button>
+            </div>
+            <p class="fineprint">呢個示範表單只做 UI；要真係收集電郵，需要後端／第三方服務（例如 Mailchimp）。</p>
+            <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+          </form>
+        </div>
+
+        <div class="card soft">
+          <h2>Instagram 社群</h2>
+          <p class="lead">食譜・貼士・抽獎同更多。分享你嘅「好味瞬間」。</p>
+
+          <div class="qr-row">
+            <div class="qr-box" aria-label="Instagram QR code（插畫）">
+              <img class="img" data-role="autoimg" data-scene="qr-ig" alt="Instagram QR code（插畫）" />
+            </div>
+            <div>
+              <p class="muted">
+                呢度已放 QR 插畫（純示意）。你日後提供真 QR（PNG/SVG），換咗個 <code>src</code> 就得。
+              </p>
+              <a class="btn btn--ghost" href="#recipes">返回食譜</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COUPON -->
+    <section class="section section--alt" id="coupon">
+      <div class="container">
+        <header class="section-head">
+          <h2>優惠券</h2>
+          <p>（按 PDF）可於 evergrate.de 使用；到期日：<strong>06.04.2026</strong></p>
+        </header>
+
+        <div class="grid-2">
+          <div class="card coupon">
+            <div class="img-card" style="margin-bottom:12px;">
+              <img class="img img--tile" data-role="autoimg" data-scene="coupon1" alt="優惠券（插畫）" />
+            </div>
+            <h3>新 Reibeschüssel 減 €5</h3>
+            <p class="price"><span class="now">€29,90</span> <span class="was">€34,90</span></p>
+            <div class="code-row">
+              <code class="code" id="code1">5off</code>
+              <button class="btn btn--ghost" data-copy="#code1" type="button">複製 code</button>
+            </div>
+            <ul class="muted">
+              <li>適用：evergrate.de</li>
+              <li>有效期至：06.04.2026</li>
+            </ul>
+          </div>
+
+          <div class="card coupon">
+            <div class="img-card" style="margin-bottom:12px;">
+              <img class="img img--tile" data-role="autoimg" data-scene="coupon2" alt="禮品套裝優惠券（插畫）" />
+            </div>
+            <h3>Profi Geschenkset 減 €5</h3>
+            <p class="price"><span class="now">€44,90</span> <span class="was">€49,90</span></p>
+            <div class="code-row">
+              <code class="code" id="code2">pro5</code>
+              <button class="btn btn--ghost" data-copy="#code2" type="button">複製 code</button>
+            </div>
+            <ul class="muted">
+              <li>適用：evergrate.de</li>
+              <li>有效期至：06.04.2026</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-cta">
+          <div class="mini-note">
+            想更似 PDF：你可以喺呢度放兩個真 QR code 圖（「掃碼省錢」同「直接去優惠」）。而家已用插畫代替。
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>
+          <div class="brand-name">evergrate</div>
+          <p class="muted">磨蓉碟食譜（廣東話網站版本）</p>
+        </div>
+        <div class="footer-links">
+          <a href="#how">點用</a>
+          <a href="#recipes">食譜</a>
+          <a href="#coupon">優惠券</a>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+
+  <script>
+    (function () {
+      // --- Helpers: inline SVG -> data URI ---
+      function svgToDataUri(svg) {
+        const cleaned = svg
+          .replace(/\n+/g, "")
+          .replace(/\s{2,}/g, " ")
+          .replace(/>\s+</g, "><")
+          .trim();
+        return "data:image/svg+xml;utf8," + encodeURIComponent(cleaned);
+      }
+
+      // A tiny deterministic RNG for consistent patterns per scene
+      function mulberry32(a){
+        return function(){
+          let t = a += 0x6D2B79F5;
+          t = Math.imul(t ^ (t >>> 15), t | 1);
+          t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+          return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+        }
+      }
+      function hashStr(str){
+        let h = 2166136261;
+        for (let i=0;i<str.length;i++){
+          h ^= str.charCodeAt(i);
+          h = Math.imul(h, 16777619);
+        }
+        return h >>> 0;
+      }
+
+      // Generic "food photo" style SVG generator
+      function makeSceneSVG(scene, w, h){
+        const seed = hashStr(scene);
+        const rnd = mulberry32(seed);
+        const bg1 = "#0b0f14";
+        const bg2 = "#0f1620";
+        const a1  = "#63e6be";
+        const a2  = "#74c0fc";
+
+        // floating bokeh
+        const blobs = Array.from({length: 12}).map(()=>{
+          const x = Math.round(rnd()*w);
+          const y = Math.round(rnd()*h);
+          const r = Math.round(20 + rnd()*90);
+          const o = (0.10 + rnd()*0.18).toFixed(3);
+          const c = rnd() > 0.5 ? a1 : a2;
+          return `<circle cx="${x}" cy="${y}" r="${r}" fill="${c}" opacity="${o}"/>`;
+        }).join("");
+
+        // subtle grain
+        const noiseDots = Array.from({length: 140}).map(()=>{
+          const x = Math.round(rnd()*w);
+          const y = Math.round(rnd()*h);
+          const o = (0.03 + rnd()*0.05).toFixed(3);
+          return `<circle cx="${x}" cy="${y}" r="1" fill="#ffffff" opacity="${o}"/>`;
+        }).join("");
+
+        // simple iconography per scene
+        const icon = (function(){
+          const stroke = "rgba(234,240,246,.85)";
+          const fill = "rgba(234,240,246,.12)";
+
+          function plate(){
+            return `
+              <g transform="translate(${w*0.52} ${h*0.55})">
+                <ellipse cx="0" cy="0" rx="${w*0.30}" ry="${h*0.26}" fill="${fill}" stroke="${stroke}" stroke-width="2"/>
+                <ellipse cx="0" cy="0" rx="${w*0.22}" ry="${h*0.19}" fill="rgba(255,255,255,.06)" stroke="${stroke}" stroke-width="1.5" opacity=".9"/>
+                <path d="M ${-w*0.15} ${-h*0.02} Q 0 ${-h*0.08} ${w*0.15} ${-h*0.02}" fill="none" stroke="${a2}" stroke-width="3" opacity=".8"/>
+                <path d="M ${-w*0.12} ${h*0.05} Q 0 ${h*0.12} ${w*0.12} ${h*0.05}" fill="none" stroke="${a1}" stroke-width="3" opacity=".8"/>
+              </g>
+            `;
+          }
+
+          function ingredients(kind){
+            // small shapes representing veggies/fruits/misc
+            const items = [];
+            const count = 7;
+            for (let i=0;i<count;i++){
+              const x = w*0.18 + rnd()*w*0.64;
+              const y = h*0.22 + rnd()*h*0.56;
+              const s = 10 + rnd()*18;
+              const rr = 6 + rnd()*10;
+              const cc = kind === "veg" ? (rnd()>.5?"#a9e34b":"#fab005")
+                       : kind === "fruit" ? (rnd()>.5?"#ff6b6b":"#ffd43b")
+                       : (rnd()>.5?"#d0bfff":"#c0eb75");
+              items.push(`<rect x="${x}" y="${y}" width="${s*2}" height="${s*1.4}" rx="${rr}" fill="${cc}" opacity=".22" stroke="${stroke}" stroke-width="1"/>`);
+              items.push(`<circle cx="${x+s*1.6}" cy="${y+s*0.4}" r="${s*0.6}" fill="${cc}" opacity=".18"/>`);
+            }
+            return `<g>${items.join("")}</g>`;
+          }
+
+          function bowl(label, accent){
+            return `
+              <g transform="translate(${w*0.52} ${h*0.58})">
+                <path d="M ${-w*0.22} ${-h*0.02} Q 0 ${h*0.22} ${w*0.22} ${-h*0.02} Z" fill="rgba(255,255,255,.06)" stroke="${stroke}" stroke-width="2"/>
+                <path d="M ${-w*0.20} ${-h*0.02} Q 0 ${h*0.16} ${w*0.20} ${-h*0.02}" fill="none" stroke="${accent}" stroke-width="4" opacity=".85"/>
+                <text x="0" y="${h*0.14}" text-anchor="middle" fill="rgba(234,240,246,.75)" font-size="${Math.max(12, Math.round(w/28))}" font-weight="700">${label}</text>
+              </g>
+            `;
+          }
+
+          function steps(){
+            const x0 = w*0.16, y0 = h*0.26;
+            const bw = w*0.22, bh = h*0.18;
+            const gap = w*0.06;
+            const cards = [
+              {t:"濕料先弄濕", c:a2},
+              {t:"打圈磨", c:a1},
+              {t:"用刷掃落嚟", c:a2},
+            ].map((it, idx)=>{
+              const x = x0 + idx*(bw+gap);
+              return `
+                <g>
+                  <rect x="${x}" y="${y0}" width="${bw}" height="${bh}" rx="18" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.18)"/>
+                  <circle cx="${x+26}" cy="${y0+26}" r="14" fill="${it.c}" opacity=".25" stroke="rgba(234,240,246,.75)"/>
+                  <text x="${x+26}" y="${y0+32}" text-anchor="middle" fill="rgba(234,240,246,.9)" font-size="14" font-weight="800">${idx+1}</text>
+                  <text x="${x+bw/2}" y="${y0+bh/2+8}" text-anchor="middle" fill="rgba(234,240,246,.72)" font-size="14" font-weight="700">${it.t}</text>
+                </g>
+              `;
+            }).join("");
+            return `<g>${cards}</g>`;
+          }
+
+          function coupon(code, price, accent){
+            return `
+              <g transform="translate(${w*0.08} ${h*0.12})">
+                <rect x="0" y="0" width="${w*0.84}" height="${h*0.76}" rx="22" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.18)"/>
+                <rect x="${w*0.06}" y="${h*0.14}" width="${w*0.72}" height="${h*0.16}" rx="14" fill="${accent}" opacity=".16"/>
+                <text x="${w*0.42}" y="${h*0.24}" text-anchor="middle" fill="rgba(234,240,246,.9)" font-size="${Math.max(14, Math.round(w/24))}" font-weight="900">€5 OFF</text>
+                <text x="${w*0.42}" y="${h*0.40}" text-anchor="middle" fill="rgba(234,240,246,.75)" font-size="14" font-weight="700">CODE: ${code}</text>
+                <text x="${w*0.42}" y="${h*0.54}" text-anchor="middle" fill="rgba(234,240,246,.75)" font-size="14" font-weight="700">${price}</text>
+                <text x="${w*0.42}" y="${h*0.68}" text-anchor="middle" fill="rgba(234,240,246,.60)" font-size="12" font-weight="700">有效期至 06.04.2026</text>
+              </g>
+            `;
+          }
+
+          function qr(label){
+            // Not a real QR; stylized block pattern
+            const size = Math.min(w,h);
+            const g = 13;
+            const cell = Math.floor((size*0.70)/g);
+            const ox = Math.floor((w - cell*g)/2);
+            const oy = Math.floor((h - cell*g)/2);
+            const cells = [];
+            for (let y=0;y<g;y++){
+              for (let x=0;x<g;x++){
+                const v = rnd();
+                // keep finder patterns corners-ish
+                const isFinder = (x<3 && y<3) || (x>g-4 && y<3) || (x<3 && y>g-4);
+                const on = isFinder ? true : (v > 0.68);
+                if (on){
+                  cells.push(`<rect x="${ox + x*cell}" y="${oy + y*cell}" width="${cell-1}" height="${cell-1}" fill="rgba(234,240,246,.78)"/>`);
+                }
+              }
+            }
+            return `
+              <g>
+                <rect x="${ox-10}" y="${oy-10}" width="${cell*g+20}" height="${cell*g+20}" rx="18" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.18)"/>
+                ${cells.join("")}
+                <text x="${w/2}" y="${h-18}" text-anchor="middle" fill="rgba(234,240,246,.60)" font-size="12" font-weight="700">${label}</text>
+              </g>
+            `;
+          }
+
+          // map scenes
+          switch(scene){
+            case "hero":
+              return plate() + ingredients("veg");
+            case "veg":
+              return ingredients("veg");
+            case "fruit":
+              return ingredients("fruit");
+            case "misc":
+              return ingredients("misc");
+            case "how":
+              return steps();
+            case "pumpkin":
+              return bowl("南瓜湯", a1);
+            case "mash":
+              return bowl("薯蓉", a2);
+            case "tart":
+              return bowl("紅蘿蔔撻", a1);
+            case "thai":
+              return bowl("泰式咖喱", a2);
+            case "lebkuchen":
+              return bowl("香料薑餅", a1);
+            case "dip":
+              return bowl("Dip & 焗盤", a2);
+            case "coupon1":
+              return coupon("5off", "€29,90  (原 €34,90)", a1);
+            case "coupon2":
+              return coupon("pro5", "€44,90  (原 €49,90)", a2);
+            case "qr-ig":
+              return qr("Instagram");
+            default:
+              return plate();
+          }
+        })();
+
+        const title = {
+          hero:"evergrate",
+          veg:"蔬菜",
+          fruit:"水果",
+          misc:"其他",
+          how:"點用",
+          pumpkin:"南瓜湯",
+          mash:"薯蓉",
+          tart:"紅蘿蔔撻",
+          thai:"泰式咖喱",
+          lebkuchen:"香料薑餅",
+          dip:"Dip & 焗盤",
+          coupon1:"優惠券",
+          coupon2:"禮品套裝",
+          "qr-ig":"IG"
+        }[scene] || "evergrate";
+
+        const svg = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
+            <defs>
+              <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="${bg2}"/>
+                <stop offset="1" stop-color="${bg1}"/>
+              </linearGradient>
+              <radialGradient id="g2" cx="25%" cy="20%" r="80%">
+                <stop offset="0" stop-color="${a2}" stop-opacity=".18"/>
+                <stop offset="1" stop-color="${a2}" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="g3" cx="80%" cy="15%" r="75%">
+                <stop offset="0" stop-color="${a1}" stop-opacity=".16"/>
+                <stop offset="1" stop-color="${a1}" stop-opacity="0"/>
+              </radialGradient>
+              <filter id="blur" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="12"/>
+              </filter>
+            </defs>
+
+            <rect width="100%" height="100%" fill="url(#g1)"/>
+            <rect width="100%" height="100%" fill="url(#g2)"/>
+            <rect width="100%" height="100%" fill="url(#g3)"/>
+
+            <g filter="url(#blur)">${blobs}</g>
+
+            <!-- frame -->
+            <rect x="10" y="10" width="${w-20}" height="${h-20}" rx="26" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.12)"/>
+
+            <!-- title -->
+            <text x="24" y="40" fill="rgba(234,240,246,.70)" font-size="18" font-weight="800" letter-spacing=".4">${title}</text>
+
+            <!-- icon layer -->
+            ${icon}
+
+            <!-- grain -->
+            ${noiseDots}
+          </svg>
+        `;
+
+        return svgToDataUri(svg);
+      }
+
+      // Assign images (hero/tiles/sides)
+      function applyAutoImages(){
+        const imgs = document.querySelectorAll('img[data-role="autoimg"]');
+        imgs.forEach(img => {
+          const scene = img.getAttribute('data-scene') || 'hero';
+          // pick size based on element class
+          const isHero = img.classList.contains('img--hero');
+          const isSide = img.classList.contains('img--side');
+          const isTile = img.classList.contains('img--tile');
+          const w = isHero ? 1100 : isSide ? 900 : isTile ? 700 : 800;
+          const h = isHero ? 600  : isSide ? 520 : isTile ? 420 : 520;
+          img.src = makeSceneSVG(scene, w, h);
+        });
+      }
+
+      // Mobile nav
+      const toggle = document.getElementById("navToggle");
+      const mobileNav = document.getElementById("mobileNav");
+
+      if (toggle && mobileNav) {
+        toggle.addEventListener("click", () => {
+          const isOpen = toggle.getAttribute("aria-expanded") === "true";
+          toggle.setAttribute("aria-expanded", String(!isOpen));
+          mobileNav.hidden = isOpen;
+        });
+
+        // Auto close on click
+        mobileNav.querySelectorAll("a").forEach(a => {
+          a.addEventListener("click", () => {
+            toggle.setAttribute("aria-expanded", "false");
+            mobileNav.hidden = true;
+          });
+        });
+      }
+
+      // Copy coupon code
+      document.querySelectorAll("[data-copy]").forEach(btn => {
+        btn.addEventListener("click", async () => {
+          const selector = btn.getAttribute("data-copy");
+          const el = document.querySelector(selector);
+          if (!el) return;
+
+          const text = el.textContent.trim();
+          try {
+            await navigator.clipboard.writeText(text);
+            const prev = btn.textContent;
+            btn.textContent = "已複製 ✅";
+            setTimeout(() => (btn.textContent = prev), 1200);
+          } catch (e) {
+            alert("你個瀏覽器唔俾剪貼簿權限。請手動複製： " + text);
+          }
+        });
+      });
+
+      // Newsletter mock submit
+      const form = document.getElementById("newsletterForm");
+      const toast = document.getElementById("toast");
+
+      if (form && toast) {
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const email = form.querySelector("#email").value.trim();
+          if (!email) return;
+
+          toast.hidden = false;
+          toast.textContent = `收到！(${email}) 目前係示範 UI，未接後端。`;
+          form.reset();
+
+          setTimeout(() => {
+            toast.hidden = true;
+            toast.textContent = "";
+          }, 2600);
+        });
+      }
+
+      // Boot
+      applyAutoImages();
+    })();
+  </script>
+</body>
+</html>
