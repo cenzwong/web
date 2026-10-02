@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EuroStay | Europe's Budget Hotel Brand Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .hotel-card:hover {
+            transform: translateY(-5px);
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 glass-morphism border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="hotel" class="text-indigo-600 w-8 h-8"></i>
+                    <span class="text-xl font-bold tracking-tight">Euro<span class="text-indigo-600">Stay</span></span>
+                </div>
+                <div class="hidden md:flex space-x-8 font-medium text-sm">
+                    <a href="#brands" class="hover:text-indigo-600 transition">Brands</a>
+                    <a href="#comparison" class="hover:text-indigo-600 transition">Comparison</a>
+                    <a href="#regions" class="hover:text-indigo-600 transition">Regions</a>
+                </div>
+                <button class="bg-indigo-600 text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-indigo-700 transition">
+                    Find a Room
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative bg-white pt-16 pb-24 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 text-center relative z-10">
+            <span class="inline-block py-1 px-3 rounded-full bg-indigo-50 text-indigo-700 text-xs font-bold uppercase tracking-wider mb-4">The 2026 Guide</span>
+            <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight">
+                Travel Europe <br><span class="text-indigo-600">Without the High Price Tag.</span>
+            </h1>
+            <p class="text-lg text-slate-600 max-w-2xl mx-auto mb-10 leading-relaxed">
+                From high-tech capsules to reliable roadside classics, we decode the most popular budget hotel brands across the continent.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#brands" class="bg-slate-900 text-white px-8 py-3 rounded-lg font-bold hover:bg-slate-800 transition shadow-lg">Browse Brands</a>
+                <a href="#comparison" class="bg-white border border-slate-200 text-slate-700 px-8 py-3 rounded-lg font-bold hover:bg-slate-50 transition">View Price Guide</a>
+            </div>
+        </div>
+        <!-- Abstract BG Shapes -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none opacity-5">
+            <div class="absolute top-10 left-10 w-64 h-64 bg-indigo-400 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-10 right-10 w-96 h-96 bg-purple-400 rounded-full blur-3xl"></div>
+        </div>
+    </header>
+
+    <!-- Filters & Brands -->
+    <section id="brands" class="py-20 max-w-7xl mx-auto px-4">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+            <div>
+                <h2 class="text-3xl font-bold mb-2">Popular Brands</h2>
+                <p class="text-slate-500">Filter by the type of experience you need.</p>
+            </div>
+            <div id="filters" class="flex flex-wrap gap-2">
+                <button onclick="filterBrands('all', event)" class="filter-btn active bg-indigo-600 text-white px-4 py-2 rounded-md text-sm font-medium">All</button>
+                <button onclick="filterBrands('tech', event)" class="filter-btn bg-white border border-slate-200 text-slate-600 px-4 py-2 rounded-md text-sm font-medium hover:border-indigo-400">High-Tech</button>
+                <button onclick="filterBrands('classic', event)" class="filter-btn bg-white border border-slate-200 text-slate-600 px-4 py-2 rounded-md text-sm font-medium hover:border-indigo-400">Classic Value</button>
+                <button onclick="filterBrands('social', event)" class="filter-btn bg-white border border-slate-200 text-slate-600 px-4 py-2 rounded-md text-sm font-medium hover:border-indigo-400">Social/Fun</button>
+            </div>
+        </div>
+
+        <div id="brandGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Brand cards will be injected here by JS -->
+        </div>
+    </section>
+
+    <!-- Comparison Table -->
+    <section id="comparison" class="py-20 bg-slate-900 text-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">At a Glance Comparison</h2>
+                <p class="text-slate-400">How do they stack up against each other?</p>
+            </div>
+
+            <div class="overflow-x-auto rounded-xl border border-slate-700">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-800 text-slate-300 uppercase text-xs font-bold tracking-widest">
+                            <th class="p-4">Brand</th>
+                            <th class="p-4">Vibe</th>
+                            <th class="p-4">Price Range</th>
+                            <th class="p-4">Key Amenity</th>
+                            <th class="p-4">Best For</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-700">
+                        <tr>
+                            <td class="p-4 font-bold">Yotel</td>
+                            <td class="p-4">Futuristic</td>
+                            <td class="p-4">€€</td>
+                            <td class="p-4">SmartBeds™</td>
+                            <td class="p-4">Solo/Techies</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-bold">citizenM</td>
+                            <td class="p-4">Boutique</td>
+                            <td class="p-4">€€€</td>
+                            <td class="p-4">iPad Controls</td>
+                            <td class="p-4">Design Lovers</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-bold">Premier Inn</td>
+                            <td class="p-4">Cozy/Reliable</td>
+                            <td class="p-4">€€</td>
+                            <td class="p-4">Hypnos Beds</td>
+                            <td class="p-4">Families/UK</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-bold">easyHotel</td>
+                            <td class="p-4">No-Frills</td>
+                            <td class="p-4">€</td>
+                            <td class="p-4">Great Locations</td>
+                            <td class="p-4">Extreme Budgets</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-bold">Motel One</td>
+                            <td class="p-4">High Design</td>
+                            <td class="p-4">€€</td>
+                            <td class="p-4">Gin Bars</td>
+                            <td class="p-4">Business Casual</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Regional Guide -->
+    <section id="regions" class="py-20 max-w-7xl mx-auto px-4">
+        <div class="bg-indigo-600 rounded-3xl p-8 md:p-16 text-white flex flex-col md:flex-row items-center gap-12">
+            <div class="flex-1 text-center md:text-left">
+                <h2 class="text-4xl font-bold mb-6">Regional Favorites</h2>
+                <div class="space-y-6 text-indigo-100">
+                    <div class="flex items-start gap-4">
+                        <div class="bg-white/20 p-2 rounded-lg"><i data-lucide="map-pin"></i></div>
+                        <div>
+                            <h4 class="font-bold text-white">United Kingdom</h4>
+                            <p class="text-sm">Look for <strong>Premier Inn</strong> or <strong>Travelodge</strong>. They are everywhere and offer great family deals.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="bg-white/20 p-2 rounded-lg"><i data-lucide="map-pin"></i></div>
+                        <div>
+                            <h4 class="font-bold text-white">Nordic Countries</h4>
+                            <p class="text-sm"><strong>Scandic</strong> is the king here. Sustainable, clean, and includes legendary breakfast buffets.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="bg-white/20 p-2 rounded-lg"><i data-lucide="map-pin"></i></div>
+                        <div>
+                            <h4 class="font-bold text-white">Spain & Italy</h4>
+                            <p class="text-sm"><strong>NH Hotels</strong> or <strong>H10</strong> offer premium city center locations at competitive mid-range prices.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-1 bg-white/10 p-4 rounded-2xl backdrop-blur-md">
+                <div class="bg-white rounded-xl p-6 text-slate-800">
+                    <h3 class="font-bold text-xl mb-4">Pro Booking Tip</h3>
+                    <p class="text-slate-600 mb-4 italic">"Many brands like Motel One and Premier Inn do not list their lowest prices on Booking.com. Always check the brand website directly."</p>
+                    <div class="p-3 bg-slate-50 rounded-lg text-sm border border-slate-100">
+                        <span class="font-bold text-indigo-600">Savings Hack:</span> Look for "Windowless" rooms in Z Hotels or Yotel to save up to 30%.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-12">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-2">
+                <i data-lucide="hotel" class="text-indigo-600 w-6 h-6"></i>
+                <span class="text-lg font-bold tracking-tight">EuroStay</span>
+            </div>
+            <p class="text-slate-500 text-sm">© 2026 EuroStay Interactive Guide. For informational purposes only.</p>
+            <div class="flex gap-4">
+                <a href="#" class="text-slate-400 hover:text-indigo-600"><i data-lucide="twitter"></i></a>
+                <a href="#" class="text-slate-400 hover:text-indigo-600"><i data-lucide="instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Brand Data
+        let brands = [];
+
+        async function loadBrandData() {
+            const grid = document.getElementById('brandGrid');
+            grid.innerHTML = '<p class="text-slate-500">Loading brands...</p>';
+
+            try {
+                const jsonFiles = [
+                    "a-and-o.json",
+                    "bb-hotels.json",
+                    "citizenm.json",
+                    "easyhotel.json",
+                    "leonardo-hotels.json",
+                    "motel-one.json",
+                    "moxy.json",
+                    "nh-hotels.json",
+                    "premier-inn.json",
+                    "staycity.json",
+                    "yotel.json",
+                    "z-hotels.json"
+                ];
+
+                if (!jsonFiles.length) {
+                    throw new Error('No brand JSON files found.');
+                }
+
+                const dataRequests = jsonFiles.map(file => fetch(`data/${file}`).then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Unable to load data/${file}.`);
+                    }
+                    return response.json();
+                }));
+
+                return await Promise.all(dataRequests);
+            } catch (error) {
+                console.error(error);
+                grid.innerHTML = '<p class="text-rose-600">Unable to load brand data. Check console for details.</p>';
+                return [];
+            }
+        }
+
+        function renderBrands(filter = 'all') {
+            const grid = document.getElementById('brandGrid');
+
+            const filtered = filter === 'all' ? brands : brands.filter(b => b.category === filter);
+
+            let brandsHTML = '';
+            filtered.forEach(brand => {
+                brandsHTML += `
+                    <div class="hotel-card bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col h-full">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="p-3 bg-indigo-50 text-indigo-600 rounded-xl">
+                                <i data-lucide="${brand.icon}"></i>
+                            </div>
+                            <span class="bg-slate-100 text-slate-600 px-3 py-1 rounded-full text-xs font-bold">${brand.price}</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-1">${brand.name}</h3>
+                        <p class="text-indigo-600 text-sm font-semibold mb-3">${brand.vibe}</p>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-6 flex-grow">${brand.desc}</p>
+                        <button class="w-full py-2 bg-slate-50 text-slate-700 rounded-lg text-sm font-bold hover:bg-indigo-50 hover:text-indigo-700 transition">
+                            Explore Locations
+                        </button>
+                    </div>
+                `;
+            });
+            grid.innerHTML = brandsHTML;
+            lucide.createIcons();
+        }
+
+        function filterBrands(category, event) {
+            // Update button styles
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('bg-indigo-600', 'text-white', 'active');
+                btn.classList.add('bg-white', 'text-slate-600', 'border-slate-200');
+            });
+
+            if (event && event.currentTarget) {
+                event.currentTarget.classList.remove('bg-white', 'text-slate-600', 'border-slate-200');
+                event.currentTarget.classList.add('bg-indigo-600', 'text-white', 'active');
+            }
+
+            renderBrands(category);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', async () => {
+            brands = await loadBrandData();
+            renderBrands();
+        });
+    </script>
+</body>
+</html>
