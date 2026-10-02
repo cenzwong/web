@@ -210,36 +210,20 @@
             grid.innerHTML = '<p class="text-slate-500">Loading brands...</p>';
 
             try {
-                let jsonFiles = [];
-                const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-
-                if (isLocal) {
-                    console.log('Local environment detected. Using hardcoded file list.');
-                    jsonFiles = [
-                        "a-and-o.json",
-                        "bb-hotels.json",
-                        "citizenm.json",
-                        "easyhotel.json",
-                        "leonardo-hotels.json",
-                        "motel-one.json",
-                        "moxy.json",
-                        "nh-hotels.json",
-                        "premier-inn.json",
-                        "staycity.json",
-                        "yotel.json",
-                        "z-hotels.json"
-                    ];
-                } else {
-                    console.log('Production environment detected. Fetching file list from GitHub API.');
-                    const listingResponse = await fetch('https://api.github.com/repos/cenzwong/eurostay/contents/data');
-                    if (!listingResponse.ok) {
-                        throw new Error('Unable to load data directory listing from GitHub API.');
-                    }
-                    const listing = await listingResponse.json();
-                    jsonFiles = listing
-                        .filter(item => item.type === 'file' && item.name.endsWith('.json'))
-                        .map(item => item.name);
-                }
+                const jsonFiles = [
+                    "a-and-o.json",
+                    "bb-hotels.json",
+                    "citizenm.json",
+                    "easyhotel.json",
+                    "leonardo-hotels.json",
+                    "motel-one.json",
+                    "moxy.json",
+                    "nh-hotels.json",
+                    "premier-inn.json",
+                    "staycity.json",
+                    "yotel.json",
+                    "z-hotels.json"
+                ];
 
                 if (!jsonFiles.length) {
                     throw new Error('No brand JSON files found.');
