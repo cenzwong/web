@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Informative Web Hub｜資訊探索主題集</title>
+  <meta name="description" content="包含一系列各種主題的資訊型互動單頁網站聚寶盆。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d1117;
+      --card-bg: #161b22;
+      --border: #30363d;
+      --text: #f0f6fc;
+      --muted: #8b949e;
+      --accent: #58a6ff;
+      --accent-glow: rgba(88, 166, 255, 0.15);
+      --badge-bg: rgba(56, 139, 253, 0.15);
+      --badge-text: #58a6ff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 60px 20px 40px;
+      text-align: center;
+      background: radial-gradient(circle at 50% 0%, rgba(56, 139, 253, 0.12) 0%, transparent 70%);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .container {
+      width: min(1100px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .logo-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      background: var(--badge-bg);
+      color: var(--badge-text);
+      font-size: 0.85rem;
+      font-weight: 700;
+      border-radius: 999px;
+      margin-bottom: 16px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-desc {
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    main {
+      flex: 1;
+      padding: 50px 0 80px;
+    }
+
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+      box-shadow: 0 12px 30px var(--accent-glow);
+    }
+
+    .card-header {
+      margin-bottom: 16px;
+    }
+
+    .card-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .tag {
+      font-size: 0.75rem;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .card-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin: 0 0 8px;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    .card-desc {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    .card-footer {
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .card-footer .arrow {
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover .card-footer .arrow {
+      transform: translateX(4px);
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 30px 20px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.88rem;
+      background: #090d12;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <span class="logo-badge">Informative Hub</span>
+      <h1>精選主題網站庫</h1>
+      <p class="hero-desc">彙整各種多元資訊與生活知識的互動式單頁網站。點擊卡片即可進入探索。</p>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="section-title">
+        <span>🌐 探索主題網站</span>
+      </div>
+
+      <div class="grid">
+        <a href="./laksa-universe/" class="card">
+          <div>
+            <div class="card-header">
+              <div class="card-tags">
+                <span class="tag">飲食文化</span>
+                <span class="tag">東南亞美食</span>
+                <span class="tag">互動圖譜</span>
+              </div>
+              <h2 class="card-title">Laksa Universe 喇沙宇宙</h2>
+            </div>
+            <p class="card-desc">探索東南亞喇沙（Laksa）的味覺座標系。從檳城酸辣魚湯到新加坡椰香娘惹湯底，收錄 27 款喇沙配方、味覺 DNA 比對與個人口味實驗室。</p>
+          </div>
+          <div class="card-footer">
+            <span>前往探索</span>
+            <span class="arrow">→</span>
+          </div>
+        </a>
+
+        <a href="./evergrate/" class="card">
+          <div>
+            <div class="card-header">
+              <div class="card-tags">
+                <span class="tag">烹飪廚藝</span>
+                <span class="tag">食譜指南</span>
+                <span class="tag">廣東話</span>
+              </div>
+              <h2 class="card-title">evergrate 磨蓉碟食譜</h2>
+            </div>
+            <p class="card-desc">專為 evergrate 磨蓉碟設計的食譜指南與活用示範。介紹蒜蓉、薑蓉、芝士與香料的創意磨蓉料理技巧，轉個手就整到新鮮餸。</p>
+          </div>
+          <div class="card-footer">
+            <span>前往探索</span>
+            <span class="arrow">→</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      &copy; Informative Web Collection. All interactive websites hosted locally in subdirectories.
+    </div>
+  </footer>
+</body>
+</html>

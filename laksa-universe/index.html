@@ -1,0 +1,1616 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Laksa Universe｜喇沙宇宙</title>
+  <style>
+    :root {
+      --bg: #120d09;
+      --panel: #1c1510;
+      --panel-2: #241a13;
+      --text: #f8eee2;
+      --muted: #bba997;
+      --line: #3c2c21;
+
+      --coconut: #f4c86b;
+      --asam: #f07252;
+      --fish: #61a9a4;
+      --cousin: #b488dd;
+
+      --accent: #f2a84b;
+      --green: #8eaa6f;
+      --danger: #e96a55;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 0%, #3a2014 0, transparent 35%),
+        radial-gradient(circle at 90% 15%, #24331f 0, transparent 28%),
+        var(--bg);
+      font-family:
+        -apple-system, BlinkMacSystemFont, "Segoe UI",
+        "PingFang TC", "Noto Sans TC", "Microsoft JhengHei",
+        sans-serif;
+      line-height: 1.55;
+    }
+
+    button, input, select {
+      font: inherit;
+    }
+
+    button { cursor: pointer; }
+
+    .wrap {
+      width: min(1180px, calc(100% - 28px));
+      margin: auto;
+    }
+
+    header {
+      padding: 72px 0 44px;
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      font-size: .78rem;
+      font-weight: 800;
+    }
+
+    h1 {
+      margin: 10px 0 12px;
+      font-size: clamp(2.7rem, 8vw, 6.5rem);
+      line-height: .92;
+      letter-spacing: -.06em;
+    }
+
+    .hero-copy {
+      max-width: 760px;
+      color: #d6c6b6;
+      font-size: clamp(1rem, 2.2vw, 1.25rem);
+    }
+
+    .hero-note {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      margin-top: 20px;
+      padding: 9px 13px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(28, 21, 16, .72);
+      color: var(--muted);
+      font-size: .88rem;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px 18px;
+      margin: 28px 0 0;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .legend span {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .controls {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      padding: 10px 0;
+      backdrop-filter: blur(18px);
+      background: rgba(18, 13, 9, .84);
+      border-top: 1px solid rgba(255,255,255,.04);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+
+    .controls-inner {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr auto;
+      gap: 9px;
+    }
+
+    input[type="search"],
+    select {
+      width: 100%;
+      min-height: 46px;
+      color: var(--text);
+      background: #211811;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      padding: 0 13px;
+      outline: none;
+    }
+
+    input:focus,
+    select:focus,
+    button:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 11px;
+      min-height: 46px;
+      padding: 0 16px;
+      color: #1b1109;
+      background: var(--accent);
+      font-weight: 800;
+    }
+
+    .btn.secondary {
+      color: var(--text);
+      background: #2d2118;
+      border: 1px solid var(--line);
+    }
+
+    .section {
+      padding: 52px 0;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(1.7rem, 4vw, 2.6rem);
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 620px;
+    }
+
+    .universe {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(290px, .72fr);
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    .matrix {
+      position: relative;
+      min-height: 610px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background:
+        linear-gradient(to right,
+          rgba(240,114,82,.10),
+          transparent 42%,
+          rgba(244,200,107,.10)),
+        linear-gradient(to bottom,
+          rgba(244,168,75,.08),
+          transparent 50%,
+          rgba(97,169,164,.08)),
+        #18110d;
+    }
+
+    .matrix::before,
+    .matrix::after {
+      content: "";
+      position: absolute;
+      background: rgba(255,255,255,.08);
+      pointer-events: none;
+    }
+
+    .matrix::before {
+      left: 50%;
+      top: 48px;
+      bottom: 48px;
+      width: 1px;
+    }
+
+    .matrix::after {
+      left: 48px;
+      right: 48px;
+      top: 50%;
+      height: 1px;
+    }
+
+    .axis {
+      position: absolute;
+      color: #9d8b7a;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .axis.left { left: 12px; top: 50%; transform: translateY(-50%); }
+    .axis.right { right: 12px; top: 50%; transform: translateY(-50%); }
+    .axis.top { top: 11px; left: 50%; transform: translateX(-50%); }
+    .axis.bottom { bottom: 11px; left: 50%; transform: translateX(-50%); }
+
+    #nodes {
+      position: absolute;
+      inset: 46px 46px;
+    }
+
+    .node {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      width: 16px;
+      height: 16px;
+      border: 0;
+      border-radius: 50%;
+      padding: 0;
+      box-shadow:
+        0 0 0 4px rgba(255,255,255,.04),
+        0 3px 15px rgba(0,0,0,.5);
+      transition:
+        width .2s ease,
+        height .2s ease,
+        opacity .2s ease,
+        transform .2s ease;
+    }
+
+    .node:hover,
+    .node.active {
+      width: 25px;
+      height: 25px;
+      z-index: 5;
+    }
+
+    .node.filtered {
+      opacity: .08;
+      pointer-events: none;
+    }
+
+    .node::after {
+      content: attr(data-short);
+      position: absolute;
+      left: 50%;
+      top: calc(100% + 8px);
+      transform: translateX(-50%);
+      width: max-content;
+      max-width: 120px;
+      color: #f7ede0;
+      background: rgba(12,8,5,.92);
+      border: 1px solid #443226;
+      border-radius: 7px;
+      padding: 4px 6px;
+      font-size: .7rem;
+      font-weight: 700;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .16s ease;
+    }
+
+    .node:hover::after,
+    .node.active::after {
+      opacity: 1;
+    }
+
+    .detail {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: var(--panel);
+      padding: 22px;
+      min-height: 610px;
+    }
+
+    .detail-tag {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #312319;
+      color: var(--muted);
+      font-size: .75rem;
+      font-weight: 800;
+    }
+
+    .detail h3 {
+      margin: 12px 0 2px;
+      font-size: 1.8rem;
+      line-height: 1.1;
+    }
+
+    .origin {
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .detail-block {
+      border-top: 1px solid var(--line);
+      padding-top: 14px;
+      margin-top: 14px;
+    }
+
+    .detail-block h4 {
+      margin: 0 0 5px;
+      font-size: .83rem;
+      color: #a99584;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .detail-block p {
+      margin: 0;
+      color: #eadbcb;
+      font-size: .94rem;
+    }
+
+    .flavors {
+      display: grid;
+      gap: 9px;
+      margin-top: 10px;
+    }
+
+    .flavor {
+      display: grid;
+      grid-template-columns: 42px 1fr 28px;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: .78rem;
+    }
+
+    .bar {
+      height: 7px;
+      border-radius: 999px;
+      background: #35271e;
+      overflow: hidden;
+    }
+
+    .bar > i {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--accent);
+    }
+
+    .compare-add {
+      width: 100%;
+      margin-top: 18px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 12px;
+    }
+
+    .dish {
+      padding: 17px;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      background: var(--panel);
+      transition: transform .15s ease, border-color .15s ease;
+    }
+
+    .dish:hover {
+      transform: translateY(-2px);
+      border-color: #6a4d38;
+    }
+
+    .dish-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .dish h3 {
+      font-size: 1rem;
+      margin: 0 0 3px;
+    }
+
+    .dish .small {
+      color: var(--muted);
+      font-size: .8rem;
+    }
+
+    .family-mark {
+      flex: 0 0 auto;
+      width: 11px;
+      height: 11px;
+      margin-top: 5px;
+      border-radius: 50%;
+    }
+
+    .dish p {
+      color: #ccbbaa;
+      font-size: .87rem;
+      margin: 12px 0;
+    }
+
+    .dish-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .mini-btn {
+      border: 1px solid var(--line);
+      background: #2a1f18;
+      color: var(--text);
+      min-height: 38px;
+      border-radius: 9px;
+      padding: 0 10px;
+      font-size: .8rem;
+      font-weight: 700;
+    }
+
+    .taste-lab {
+      display: grid;
+      grid-template-columns: minmax(0, .9fr) minmax(320px, 1.1fr);
+      gap: 16px;
+    }
+
+    .lab-panel {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--panel);
+      padding: 22px;
+    }
+
+    .lab-panel h3 {
+      margin-top: 0;
+    }
+
+    .range-row {
+      display: grid;
+      grid-template-columns: 56px 1fr 34px;
+      align-items: center;
+      gap: 12px;
+      margin: 15px 0;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+    }
+
+    .matches {
+      display: grid;
+      gap: 10px;
+    }
+
+    .match {
+      padding: 14px;
+      border-radius: 13px;
+      background: var(--panel-2);
+      border: 1px solid var(--line);
+    }
+
+    .match strong {
+      font-size: 1.05rem;
+    }
+
+    .score {
+      color: var(--accent);
+      font-weight: 900;
+      float: right;
+    }
+
+    .compare {
+      display: none;
+      margin-top: 20px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+      background: var(--panel);
+    }
+
+    .compare.visible { display: block; }
+
+    .compare-head {
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .table-wrap { overflow-x: auto; }
+
+    table {
+      width: 100%;
+      min-width: 720px;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid var(--line);
+      font-size: .88rem;
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--muted);
+      background: #19120e;
+    }
+
+    footer {
+      padding: 40px 0 70px;
+      color: #8e7f70;
+      font-size: .85rem;
+      border-top: 1px solid rgba(255,255,255,.05);
+    }
+
+    .empty {
+      grid-column: 1 / -1;
+      padding: 28px;
+      text-align: center;
+      color: var(--muted);
+      border: 1px dashed var(--line);
+      border-radius: 14px;
+    }
+
+    @media (max-width: 880px) {
+      .controls-inner {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .universe,
+      .taste-lab {
+        grid-template-columns: 1fr;
+      }
+
+      .matrix {
+        min-height: 520px;
+      }
+
+      .detail {
+        min-height: auto;
+      }
+
+      .cards {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+      }
+    }
+
+    @media (max-width: 580px) {
+      header {
+        padding-top: 44px;
+      }
+
+      .controls-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .section {
+        padding: 38px 0;
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .section-head p {
+        margin-top: 8px;
+      }
+
+      .matrix {
+        min-height: 430px;
+      }
+
+      #nodes {
+        inset: 44px 34px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .axis.left { left: 6px; }
+      .axis.right { right: 6px; }
+
+      .legend {
+        gap: 7px 13px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        scroll-behavior: auto !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="wrap">
+      <div class="eyebrow">A flavour atlas of Southeast Asia</div>
+      <h1>Laksa<br>Universe</h1>
+
+      <p class="hero-copy">
+        「喇沙」唔係一碗固定嘅麵，而係一整個東南亞味覺宇宙。
+        由檳城酸辣魚湯，到新加坡椰香娘惹湯底，再去柔佛嘅魚肉意粉、
+        砂拉越香料米粉，以及一班唔叫 Laksa、但 DNA 非常接近嘅親戚。
+      </p>
+
+      <div class="hero-note">
+        🌶️ 點擊宇宙入面任何一粒「星」，睇佢嘅配方同味道 DNA
+      </div>
+
+      <div class="legend">
+        <span><i class="dot" style="background:var(--coconut)"></i>椰奶咖喱派</span>
+        <span><i class="dot" style="background:var(--asam)"></i>酸辣魚湯派</span>
+        <span><i class="dot" style="background:var(--fish)"></i>魚肉椰奶／地域派</span>
+        <span><i class="dot" style="background:var(--cousin)"></i>Laksa 近親</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="controls">
+    <div class="wrap controls-inner">
+      <input id="search" type="search"
+        placeholder="搜尋：Penang、Johor、椰奶、魚湯…" aria-label="搜尋菜式">
+
+      <select id="familyFilter" aria-label="按家族篩選">
+        <option value="all">所有家族</option>
+        <option value="coconut">椰奶咖喱派</option>
+        <option value="asam">酸辣魚湯派</option>
+        <option value="fish">魚肉椰奶／地域派</option>
+        <option value="cousin">Laksa 近親</option>
+      </select>
+
+      <select id="regionFilter" aria-label="按地區篩選">
+        <option value="all">所有地區</option>
+        <option value="Malaysia">馬來西亞</option>
+        <option value="Singapore">新加坡</option>
+        <option value="Indonesia">印尼</option>
+        <option value="Thailand">泰國</option>
+        <option value="Laos">老撾</option>
+        <option value="Cambodia">柬埔寨</option>
+        <option value="Myanmar">緬甸</option>
+        <option value="Vietnam">越南</option>
+        <option value="Brunei">汶萊</option>
+      </select>
+
+      <button id="resetFilters" class="btn secondary" type="button">重設</button>
+    </div>
+  </div>
+
+  <main>
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">01 · Flavour universe</div>
+            <h2>喇沙味覺宇宙</h2>
+          </div>
+          <p>
+            左邊愈酸，右邊愈椰香；上面偏香料咖喱，下面偏魚鮮。
+            呢張圖唔係地理位置，而係味道位置。
+          </p>
+        </div>
+
+        <div class="universe">
+          <div class="matrix" aria-label="Laksa 味覺矩陣">
+            <span class="axis left">← 酸爽</span>
+            <span class="axis right">椰香濃厚 →</span>
+            <span class="axis top">↑ 香料／咖喱</span>
+            <span class="axis bottom">魚鮮湯 ↓</span>
+            <div id="nodes"></div>
+          </div>
+
+          <aside id="detail" class="detail" aria-live="polite"></aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">02 · The bowls</div>
+            <h2>逐碗探索</h2>
+          </div>
+          <p id="countLabel"></p>
+        </div>
+
+        <div id="cards" class="cards"></div>
+
+        <div id="compare" class="compare">
+          <div class="compare-head">
+            <strong>味道比較</strong>
+            <button id="clearCompare" class="mini-btn" type="button">
+              清除比較
+            </button>
+          </div>
+          <div id="compareTable" class="table-wrap"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">03 · Find your bowl</div>
+            <h2>你會鍾意邊碗？</h2>
+          </div>
+          <p>
+            調校你想要嘅酸、椰香、辣度、魚鮮同香草感，
+            系統會喺整個 Laksa 宇宙搵最接近嘅三款。
+          </p>
+        </div>
+
+        <div class="taste-lab">
+          <div class="lab-panel">
+            <h3>你嘅味道設定</h3>
+
+            <div class="range-row">
+              <label for="sour">酸</label>
+              <input id="sour" type="range" min="0" max="5" value="2">
+              <output id="sourOut">2</output>
+            </div>
+
+            <div class="range-row">
+              <label for="coconut">椰香</label>
+              <input id="coconut" type="range" min="0" max="5" value="4">
+              <output id="coconutOut">4</output>
+            </div>
+
+            <div class="range-row">
+              <label for="spice">辣</label>
+              <input id="spice" type="range" min="0" max="5" value="3">
+              <output id="spiceOut">3</output>
+            </div>
+
+            <div class="range-row">
+              <label for="fish">魚鮮</label>
+              <input id="fish" type="range" min="0" max="5" value="3">
+              <output id="fishOut">3</output>
+            </div>
+
+            <div class="range-row">
+              <label for="herb">香草</label>
+              <input id="herb" type="range" min="0" max="5" value="3">
+              <output id="herbOut">3</output>
+            </div>
+
+            <button id="hkPreset" class="btn secondary" type="button">
+              🇭🇰 香港常見喇沙口味
+            </button>
+          </div>
+
+          <div class="lab-panel">
+            <h3>最接近你口味</h3>
+            <div id="matches" class="matches"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      味道座標係用嚟幫助理解各款麵之間嘅關係，並非官方評分。
+      同一款 Laksa 喺唔同檔口、家庭同城市都可以有明顯差異——
+      呢種「冇唯一正宗配方」本身就係 Laksa 最有趣嘅地方之一。
+    </div>
+  </footer>
+
+  <script>
+    const dishes = [
+      {
+        id: "curry-laksa",
+        name: "Curry Laksa",
+        short: "Curry Laksa",
+        origin: "馬來西亞／新加坡",
+        region: "Malaysia",
+        family: "coconut",
+        x: 82, y: 28,
+        taste: { sour:1, coconut:5, spice:4, fish:3, herb:3 },
+        broth: "椰奶＋蝦／雞湯＋辣椒香料醬 rempah",
+        noodle: "粗米粉、米粉或黃麵",
+        toppings: "蝦、豆卜、芽菜、蛋、魚餅；部分地區有血蚶",
+        desc: "香港人講「喇沙」時最常遇到嘅味道：濃厚椰奶、蝦鮮、辣椒同香料。",
+        hk: "★★★★★"
+      },
+      {
+        id: "katong",
+        name: "Katong Laksa",
+        short: "Katong",
+        origin: "新加坡・Katong",
+        region: "Singapore",
+        family: "coconut",
+        x: 86, y: 35,
+        taste: { sour:1, coconut:5, spice:3, fish:3, herb:3 },
+        broth: "娘惹式椰奶海鮮香料湯",
+        noodle: "剪短嘅粗米粉",
+        toppings: "蝦、魚餅、芽菜、血蚶、Laksa leaf",
+        desc: "新加坡代表性 Laksa。米粉會剪短，傳統上可以淨係用匙羹食。",
+        hk: "★★★★★"
+      },
+      {
+        id: "nyonya",
+        name: "Nyonya Laksa / Laksa Lemak",
+        short: "Nyonya",
+        origin: "馬六甲／新加坡",
+        region: "Malaysia",
+        family: "coconut",
+        x: 88, y: 31,
+        taste: { sour:1, coconut:5, spice:4, fish:3, herb:4 },
+        broth: "椰奶＋蝦米／belacan＋香茅＋南薑＋辣椒",
+        noodle: "米粉或黃麵",
+        toppings: "蝦、豆卜、蛋、芽菜、魚餅",
+        desc: "Peranakan 娘惹風格，椰香同香料味通常相當突出。",
+        hk: "★★★★★"
+      },
+      {
+        id: "asam",
+        name: "Penang Asam Laksa",
+        short: "Asam",
+        origin: "馬來西亞・檳城",
+        region: "Malaysia",
+        family: "asam",
+        x: 8, y: 82,
+        taste: { sour:5, coconut:0, spice:4, fish:5, herb:5 },
+        broth: "鯖魚／沙甸魚＋羅望子＋辣椒＋香茅＋南薑",
+        noodle: "粗身米製 Laksa 麵",
+        toppings: "青瓜、洋蔥、薄荷、菠蘿、火炬薑花、蝦膏",
+        desc: "完全唔係香港常見椰奶喇沙：主角係酸、辣、魚鮮同大量香草。",
+        hk: "★☆☆☆☆"
+      },
+      {
+        id: "laksa-utara",
+        name: "Laksa Utara",
+        short: "Utara",
+        origin: "馬來西亞・吉打／北馬",
+        region: "Malaysia",
+        family: "asam",
+        x: 13, y: 79,
+        taste: { sour:5, coconut:0, spice:4, fish:5, herb:4 },
+        broth: "魚湯＋羅望子＋辣椒＋belacan＋南薑",
+        noodle: "粗米麵",
+        toppings: "青瓜、洋蔥、蛋、青檸",
+        desc: "同 Asam Laksa 同屬北馬酸辣魚湯世界，魚味通常相當直接。",
+        hk: "★☆☆☆☆"
+      },
+      {
+        id: "perlis",
+        name: "Laksa Perlis",
+        short: "Perlis",
+        origin: "馬來西亞・玻璃市",
+        region: "Malaysia",
+        family: "asam",
+        x: 16, y: 86,
+        taste: { sour:4, coconut:0, spice:3, fish:5, herb:3 },
+        broth: "大量魚肉＋羅望子＋南薑＋辣椒蝦醬",
+        noodle: "米製 Laksa 麵",
+        toppings: "青瓜、蛋、菠蘿等",
+        desc: "魚肉比例突出，酸味鮮味比椰香重要得多。",
+        hk: "★☆☆☆☆"
+      },
+      {
+        id: "siam-laksa",
+        name: "Siam Laksa",
+        short: "Siam",
+        origin: "馬來西亞・檳城",
+        region: "Malaysia",
+        family: "fish",
+        x: 53, y: 63,
+        taste: { sour:4, coconut:3, spice:4, fish:5, herb:5 },
+        broth: "魚肉＋羅望子＋椰奶＋香料",
+        noodle: "粗 Laksa 米麵",
+        toppings: "青瓜、薄荷、菠蘿、火炬薑花",
+        desc: "可以當成 Asam Laksa 同椰奶 Laksa 之間嘅橋樑：又酸又魚鮮，但有椰香。",
+        hk: "★★★☆☆"
+      },
+      {
+        id: "johor",
+        name: "Laksa Johor",
+        short: "Johor",
+        origin: "馬來西亞・柔佛",
+        region: "Malaysia",
+        family: "fish",
+        x: 65, y: 68,
+        taste: { sour:2, coconut:4, spice:4, fish:5, herb:4 },
+        broth: "魚肉＋椰奶＋kerisik 炒椰蓉＋咖喱香料＋asam",
+        noodle: "Spaghetti 意粉",
+        toppings: "青瓜、芽菜、長豆、洋蔥、香草、sambal belacan",
+        desc: "最容易認嘅特徵：用意粉。汁濃得有少少似馬來香料魚肉醬意粉。",
+        hk: "★★★☆☆"
+      },
+      {
+        id: "sarawak",
+        name: "Sarawak Laksa",
+        short: "Sarawak",
+        origin: "馬來西亞・砂拉越",
+        region: "Malaysia",
+        family: "coconut",
+        x: 69, y: 42,
+        taste: { sour:2, coconut:3, spice:5, fish:4, herb:4 },
+        broth: "複雜香料醬＋蝦／雞湯＋椰奶＋少量羅望子",
+        noodle: "幼米粉",
+        toppings: "蝦、雞絲、蛋絲、芽菜、芫荽、青檸",
+        desc: "香料層次極多，椰奶存在但通常唔會似 Curry Laksa 咁厚重。",
+        hk: "★★★★☆"
+      },
+      {
+        id: "terengganu-white",
+        name: "Laksa Terengganu Kuah Putih",
+        short: "Kuah Putih",
+        origin: "馬來西亞・登嘉樓",
+        region: "Malaysia",
+        family: "fish",
+        x: 78, y: 87,
+        taste: { sour:1, coconut:5, spice:1, fish:5, herb:3 },
+        broth: "魚肉＋椰奶＋洋蔥＋黑胡椒",
+        noodle: "粗米製 Laksa 麵",
+        toppings: "青瓜、長豆、芽菜、香草、辣椒醬",
+        desc: "白色魚肉椰奶汁，唔一定辣；同咖喱 Laksa 完全係另一個方向。",
+        hk: "★★☆☆☆"
+      },
+      {
+        id: "laksam",
+        name: "Laksam",
+        short: "Laksam",
+        origin: "吉蘭丹／登嘉樓",
+        region: "Malaysia",
+        family: "fish",
+        x: 83, y: 91,
+        taste: { sour:0, coconut:5, spice:1, fish:5, herb:3 },
+        broth: "魚肉＋椰奶白汁＋薑、紅蔥、蒜",
+        noodle: "米漿蒸成薄片，捲起再切",
+        toppings: "青瓜、長豆、香草、辣椒醬",
+        desc: "外形有少少似厚身腸粉卷，配魚肉椰奶汁；東海岸早餐代表之一。",
+        hk: "★★☆☆☆"
+      },
+      {
+        id: "betawi",
+        name: "Laksa Betawi",
+        short: "Betawi",
+        origin: "印尼・雅加達",
+        region: "Indonesia",
+        family: "coconut",
+        x: 79, y: 41,
+        taste: { sour:1, coconut:5, spice:3, fish:3, herb:3 },
+        broth: "椰奶＋蝦米 ebi＋薑黃＋芫荽籽香料",
+        noodle: "米粉／配 ketupat",
+        toppings: "芽菜、蛋、香草",
+        desc: "椰香加蝦米鮮味，黃薑同印尼香料個性比馬來 Curry Laksa 更突出。",
+        hk: "★★★★☆"
+      },
+      {
+        id: "bogor",
+        name: "Laksa Bogor",
+        short: "Bogor",
+        origin: "印尼・西爪哇",
+        region: "Indonesia",
+        family: "fish",
+        x: 72, y: 49,
+        taste: { sour:1, coconut:5, spice:3, fish:2, herb:4 },
+        broth: "椰奶黃湯＋香料＋oncom 發酵豆餅",
+        noodle: "米粉",
+        toppings: "芽菜、ketupat、豆腐、蛋、kemangi",
+        desc: "最有辨識度係 oncom 帶來嘅發酵豆香，味道非常印尼。",
+        hk: "★★★☆☆"
+      },
+      {
+        id: "tangerang",
+        name: "Laksa Tangerang",
+        short: "Tangerang",
+        origin: "印尼・萬丹",
+        region: "Indonesia",
+        family: "fish",
+        x: 77, y: 57,
+        taste: { sour:1, coconut:5, spice:2, fish:2, herb:2 },
+        broth: "黃色椰香濃汁＋香料＋炒椰絲＋綠豆",
+        noodle: "當地米製白麵",
+        toppings: "韭菜，可配 opor 雞、蛋、豆腐",
+        desc: "微甜、豆香同椰香突出，已經同新加坡式 Laksa 相距幾遠。",
+        hk: "★★★☆☆"
+      },
+      {
+        id: "medan",
+        name: "Laksa Medan",
+        short: "Medan",
+        origin: "印尼・棉蘭",
+        region: "Indonesia",
+        family: "coconut",
+        x: 82, y: 40,
+        taste: { sour:1, coconut:5, spice:3, fish:3, herb:3 },
+        broth: "濃椰奶＋芳香香料",
+        noodle: "黃麵或米粉",
+        toppings: "蝦、蛋、芽菜",
+        desc: "濃、香、微甜，方向同香港較熟悉嘅椰奶 Laksa 相對接近。",
+        hk: "★★★★☆"
+      },
+      {
+        id: "palembang",
+        name: "Lakso Palembang",
+        short: "Lakso",
+        origin: "印尼・巨港",
+        region: "Indonesia",
+        family: "fish",
+        x: 76, y: 69,
+        taste: { sour:1, coconut:5, spice:2, fish:4, herb:2 },
+        broth: "黃色椰奶汁＋蝦米＋薑黃＋芫荽等香料",
+        noodle: "粗身柔軟米製麵",
+        toppings: "炸蔥等簡單配料",
+        desc: "溫和、椰香、海味重，通常冇 Curry Laksa 咁辣。",
+        hk: "★★★☆☆"
+      },
+      {
+        id: "banjar",
+        name: "Laksa Banjar",
+        short: "Banjar",
+        origin: "印尼・南加里曼丹",
+        region: "Indonesia",
+        family: "fish",
+        x: 74, y: 78,
+        taste: { sour:1, coconut:4, spice:3, fish:5, herb:3 },
+        broth: "蛇頭魚 haruan＋椰奶＋薑黃香料",
+        noodle: "米漿蒸熟形成短條／麵團狀",
+        toppings: "魚肉濃汁與香料配菜",
+        desc: "質感介乎麵同米糕之間，係婆羅洲非常獨特嘅 Laksa 分支。",
+        hk: "★★☆☆☆"
+      },
+      {
+        id: "brunei",
+        name: "Brunei Laksa",
+        short: "Brunei",
+        origin: "汶萊",
+        region: "Brunei",
+        family: "coconut",
+        x: 78, y: 46,
+        taste: { sour:1, coconut:4, spice:3, fish:3, herb:3 },
+        broth: "椰奶＋海鮮鮮味＋香料",
+        noodle: "米粉",
+        toppings: "蝦、雞、蛋等，店舖差異大",
+        desc: "大方向屬婆羅洲椰奶海鮮 Laksa，但冇一套全國統一配方。",
+        hk: "★★★★☆"
+      },
+      {
+        id: "mee-kari",
+        name: "Mee Kari / Curry Mee",
+        short: "Mee Kari",
+        origin: "馬來西亞",
+        region: "Malaysia",
+        family: "cousin",
+        x: 84, y: 24,
+        taste: { sour:1, coconut:5, spice:4, fish:2, herb:2 },
+        broth: "咖喱香料＋椰奶＋雞／蝦湯",
+        noodle: "黃麵、米粉或兩溝",
+        toppings: "豆卜、芽菜、蛋、魚蛋；部分地區有血蚶",
+        desc: "Curry Laksa 最親近嘅表兄弟，有時兩個名稱喺餐廳甚至會混用。",
+        hk: "★★★★★"
+      },
+      {
+        id: "white-curry",
+        name: "Penang White Curry Mee",
+        short: "White Curry",
+        origin: "馬來西亞・檳城",
+        region: "Malaysia",
+        family: "cousin",
+        x: 76, y: 34,
+        taste: { sour:1, coconut:4, spice:4, fish:3, herb:2 },
+        broth: "較淡色椰奶湯＋海鮮／雞湯",
+        noodle: "黃麵＋米粉",
+        toppings: "豆卜、血蚶、魷魚；辣椒醬另外加入",
+        desc: "湯底本身可以好淡色，真正辣度靠食客自己加紅色辣椒醬。",
+        hk: "★★★★★"
+      },
+      {
+        id: "khao-soi",
+        name: "Khao Soi",
+        short: "Khao Soi",
+        origin: "泰國北部",
+        region: "Thailand",
+        family: "cousin",
+        x: 80, y: 20,
+        taste: { sour:2, coconut:5, spice:4, fish:1, herb:3 },
+        broth: "椰奶＋咖喱香料＋雞／牛",
+        noodle: "蛋麵＋炸脆麵",
+        toppings: "酸菜、紅蔥、青檸、辣椒油",
+        desc: "同 Curry Laksa 味覺距離好近，但用蛋麵同脆麵，泰北風格更明顯。",
+        hk: "★★★★☆"
+      },
+      {
+        id: "khao-poon",
+        name: "Khao Poon",
+        short: "Khao Poon",
+        origin: "老撾",
+        region: "Laos",
+        family: "cousin",
+        x: 64, y: 52,
+        taste: { sour:2, coconut:4, spice:4, fish:4, herb:5 },
+        broth: "椰奶＋肉／魚＋南薑＋青檸葉＋發酵魚醬",
+        noodle: "幼發酵米粉",
+        toppings: "大量香草、蔬菜",
+        desc: "有時直譯成「Lao Laksa」，發酵魚醬同香草感通常比馬來 Laksa 更強。",
+        hk: "★★★☆☆"
+      },
+      {
+        id: "num-banh-chok",
+        name: "Num Banh Chok",
+        short: "Num Banh Chok",
+        origin: "柬埔寨",
+        region: "Cambodia",
+        family: "cousin",
+        x: 48, y: 72,
+        taste: { sour:2, coconut:2, spice:2, fish:5, herb:5 },
+        broth: "魚肉＋kroeung 香料醬；部分版本帶椰奶",
+        noodle: "發酵米麵",
+        toppings: "香蕉花、青瓜、豆角、大量香草",
+        desc: "魚湯米麵 DNA 同 Laksa 非常接近，但 Khmer 香草世界完全有自己性格。",
+        hk: "★★☆☆☆"
+      },
+      {
+        id: "ohn-no",
+        name: "Ohn No Khao Swe",
+        short: "Ohn No",
+        origin: "緬甸",
+        region: "Myanmar",
+        family: "cousin",
+        x: 86, y: 26,
+        taste: { sour:1, coconut:5, spice:2, fish:0, herb:2 },
+        broth: "椰奶雞湯＋黃薑＋鷹嘴豆粉",
+        noodle: "小麥麵",
+        toppings: "蛋、洋蔥、炸脆麵、青檸",
+        desc: "好似一碗溫柔版雞肉 Curry Laksa，鷹嘴豆粉令湯身特別濃滑。",
+        hk: "★★★★☆"
+      },
+      {
+        id: "mohinga",
+        name: "Mohinga",
+        short: "Mohinga",
+        origin: "緬甸",
+        region: "Myanmar",
+        family: "cousin",
+        x: 28, y: 90,
+        taste: { sour:2, coconut:0, spice:2, fish:5, herb:4 },
+        broth: "魚湯＋香茅＋黃薑＋魚醬＋鷹嘴豆／米粉增稠",
+        noodle: "幼米粉",
+        toppings: "香蕉莖、蛋、炸物、香草",
+        desc: "冇椰奶嘅魚湯麵，概念上同酸魚湯 Laksa 有親戚感，但並唔係 Laksa。",
+        hk: "★☆☆☆☆"
+      },
+      {
+        id: "mie-celor",
+        name: "Mie Celor",
+        short: "Mie Celor",
+        origin: "印尼・巨港",
+        region: "Indonesia",
+        family: "cousin",
+        x: 78, y: 56,
+        taste: { sour:1, coconut:4, spice:1, fish:4, herb:1 },
+        broth: "蝦湯＋椰奶濃汁",
+        noodle: "粗黃麵",
+        toppings: "蛋、芹菜、芽菜、炸蔥",
+        desc: "可以想像成少辣、少 rempah、蝦味更集中嘅 Laksa 親戚。",
+        hk: "★★★☆☆"
+      },
+      {
+        id: "bun-ken",
+        name: "Bún Kèn",
+        short: "Bún Kèn",
+        origin: "越南・富國島／Kiên Giang",
+        region: "Vietnam",
+        family: "cousin",
+        x: 71, y: 70,
+        taste: { sour:2, coconut:4, spice:3, fish:5, herb:5 },
+        broth: "魚肉打碎＋椰奶＋南部越南香料",
+        noodle: "米粉",
+        toppings: "青木瓜、青瓜、芽菜、香草",
+        desc: "越南最有 Laksa 親戚感嘅麵之一：魚、椰奶、米粉、香草全部齊。",
+        hk: "★★★☆☆"
+      }
+    ];
+
+    const familyInfo = {
+      coconut: { label: "椰奶咖喱派", color: "var(--coconut)" },
+      asam: { label: "酸辣魚湯派", color: "var(--asam)" },
+      fish: { label: "魚肉椰奶／地域派", color: "var(--fish)" },
+      cousin: { label: "Laksa 近親", color: "var(--cousin)" }
+    };
+
+    const state = {
+      selected: "curry-laksa",
+      compare: [],
+      query: "",
+      family: "all",
+      region: "all"
+    };
+
+    const nodes = document.querySelector("#nodes");
+    const detail = document.querySelector("#detail");
+    const cards = document.querySelector("#cards");
+    const countLabel = document.querySelector("#countLabel");
+    const compareBox = document.querySelector("#compare");
+    const compareTable = document.querySelector("#compareTable");
+
+    const search = document.querySelector("#search");
+    const familyFilter = document.querySelector("#familyFilter");
+    const regionFilter = document.querySelector("#regionFilter");
+
+    function getDish(id) {
+      return dishes.find(d => d.id === id);
+    }
+
+    function matchesFilter(d) {
+      const q = state.query.trim().toLowerCase();
+
+      const haystack = [
+        d.name, d.origin, d.broth, d.noodle,
+        d.toppings, d.desc, familyInfo[d.family].label
+      ].join(" ").toLowerCase();
+
+      return (
+        (!q || haystack.includes(q)) &&
+        (state.family === "all" || d.family === state.family) &&
+        (state.region === "all" || d.region === state.region)
+      );
+    }
+
+    function renderNodes() {
+      nodes.innerHTML = "";
+
+      dishes.forEach(d => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "node";
+        b.dataset.short = d.short;
+        b.setAttribute("aria-label", `${d.name}，${d.origin}`);
+        b.style.left = `${d.x}%`;
+        b.style.top = `${d.y}%`;
+        b.style.background = familyInfo[d.family].color;
+
+        if (d.id === state.selected) b.classList.add("active");
+        if (!matchesFilter(d)) b.classList.add("filtered");
+
+        b.addEventListener("click", () => selectDish(d.id));
+        nodes.appendChild(b);
+      });
+    }
+
+    function renderDetail() {
+      const d = getDish(state.selected) || dishes[0];
+      const family = familyInfo[d.family];
+
+      const bars = Object.entries({
+        "酸": d.taste.sour,
+        "椰": d.taste.coconut,
+        "辣": d.taste.spice,
+        "鮮": d.taste.fish,
+        "草": d.taste.herb
+      }).map(([label, value]) => `
+        <div class="flavor">
+          <span>${label}</span>
+          <div class="bar">
+            <i style="width:${value * 20}%"></i>
+          </div>
+          <b>${value}</b>
+        </div>
+      `).join("");
+
+      detail.innerHTML = `
+        <span class="detail-tag"
+          style="color:${family.color}">
+          ${family.label}
+        </span>
+
+        <h3>${d.name}</h3>
+        <div class="origin">${d.origin}</div>
+
+        <p>${d.desc}</p>
+
+        <div class="detail-block">
+          <h4>湯底核心</h4>
+          <p>${d.broth}</p>
+        </div>
+
+        <div class="detail-block">
+          <h4>麵</h4>
+          <p>${d.noodle}</p>
+        </div>
+
+        <div class="detail-block">
+          <h4>典型配料</h4>
+          <p>${d.toppings}</p>
+        </div>
+
+        <div class="detail-block">
+          <h4>味道指紋 · 0–5</h4>
+          <div class="flavors">${bars}</div>
+        </div>
+
+        <div class="detail-block">
+          <h4>似香港常見喇沙程度</h4>
+          <p style="color:var(--accent);font-size:1.15rem">${d.hk}</p>
+        </div>
+
+        <button
+          class="btn secondary compare-add"
+          type="button"
+          id="detailCompare">
+          ${state.compare.includes(d.id) ? "✓ 已加入比較" : "＋ 加入比較"}
+        </button>
+      `;
+
+      document.querySelector("#detailCompare")
+        .addEventListener("click", () => toggleCompare(d.id));
+    }
+
+    function renderCards() {
+      const filtered = dishes.filter(matchesFilter);
+      countLabel.textContent =
+        `顯示 ${filtered.length} / ${dishes.length} 款麵`;
+
+      if (!filtered.length) {
+        cards.innerHTML =
+          `<div class="empty">搵唔到符合條件嘅 Laksa 🌶️</div>`;
+        return;
+      }
+
+      cards.innerHTML = filtered.map(d => `
+        <article class="dish">
+          <div class="dish-top">
+            <div>
+              <h3>${d.name}</h3>
+              <div class="small">${d.origin}</div>
+            </div>
+            <span class="family-mark"
+              style="background:${familyInfo[d.family].color}"></span>
+          </div>
+
+          <p>${d.desc}</p>
+
+          <div class="dish-actions">
+            <button
+              class="mini-btn inspect"
+              type="button"
+              data-id="${d.id}">
+              睇配方
+            </button>
+
+            <button
+              class="mini-btn add"
+              type="button"
+              data-id="${d.id}">
+              ${state.compare.includes(d.id) ? "✓ 比較中" : "＋ 比較"}
+            </button>
+          </div>
+        </article>
+      `).join("");
+
+      cards.querySelectorAll(".inspect").forEach(btn => {
+        btn.addEventListener("click", () => {
+          selectDish(btn.dataset.id);
+          document.querySelector(".matrix")
+            .scrollIntoView({ behavior: "smooth", block: "center" });
+        });
+      });
+
+      cards.querySelectorAll(".add").forEach(btn => {
+        btn.addEventListener("click", () => toggleCompare(btn.dataset.id));
+      });
+    }
+
+    function selectDish(id) {
+      state.selected = id;
+      renderNodes();
+      renderDetail();
+    }
+
+    function toggleCompare(id) {
+      const index = state.compare.indexOf(id);
+
+      if (index >= 0) {
+        state.compare.splice(index, 1);
+      } else {
+        if (state.compare.length >= 3) {
+          alert("一次最多比較三款。");
+          return;
+        }
+        state.compare.push(id);
+      }
+
+      renderDetail();
+      renderCards();
+      renderCompare();
+    }
+
+    function renderCompare() {
+      if (!state.compare.length) {
+        compareBox.classList.remove("visible");
+        compareTable.innerHTML = "";
+        return;
+      }
+
+      compareBox.classList.add("visible");
+
+      const selected = state.compare.map(getDish);
+
+      const row = (label, getValue) => `
+        <tr>
+          <th>${label}</th>
+          ${selected.map(d => `<td>${getValue(d)}</td>`).join("")}
+        </tr>
+      `;
+
+      compareTable.innerHTML = `
+        <table>
+          <thead>
+            <tr>
+              <th>項目</th>
+              ${selected.map(d => `<th>${d.name}</th>`).join("")}
+            </tr>
+          </thead>
+
+          <tbody>
+            ${row("地方", d => d.origin)}
+            ${row("家族", d => familyInfo[d.family].label)}
+            ${row("湯底", d => d.broth)}
+            ${row("麵", d => d.noodle)}
+            ${row("酸", d => `${d.taste.sour}/5`)}
+            ${row("椰香", d => `${d.taste.coconut}/5`)}
+            ${row("辣", d => `${d.taste.spice}/5`)}
+            ${row("魚鮮", d => `${d.taste.fish}/5`)}
+            ${row("香草", d => `${d.taste.herb}/5`)}
+            ${row("似香港喇沙", d => d.hk)}
+          </tbody>
+        </table>
+      `;
+    }
+
+    function renderAll() {
+      renderNodes();
+      renderDetail();
+      renderCards();
+      renderCompare();
+    }
+
+    search.addEventListener("input", e => {
+      state.query = e.target.value;
+      renderNodes();
+      renderCards();
+    });
+
+    familyFilter.addEventListener("change", e => {
+      state.family = e.target.value;
+      renderNodes();
+      renderCards();
+    });
+
+    regionFilter.addEventListener("change", e => {
+      state.region = e.target.value;
+      renderNodes();
+      renderCards();
+    });
+
+    document.querySelector("#resetFilters")
+      .addEventListener("click", () => {
+        state.query = "";
+        state.family = "all";
+        state.region = "all";
+
+        search.value = "";
+        familyFilter.value = "all";
+        regionFilter.value = "all";
+
+        renderNodes();
+        renderCards();
+      });
+
+    document.querySelector("#clearCompare")
+      .addEventListener("click", () => {
+        state.compare = [];
+        renderDetail();
+        renderCards();
+        renderCompare();
+      });
+
+    const ranges = ["sour", "coconut", "spice", "fish", "herb"];
+
+    ranges.forEach(id => {
+      const input = document.querySelector(`#${id}`);
+      const output = document.querySelector(`#${id}Out`);
+
+      input.addEventListener("input", () => {
+        output.textContent = input.value;
+        renderMatches();
+      });
+    });
+
+    function renderMatches() {
+      const wanted = Object.fromEntries(
+        ranges.map(id => [
+          id,
+          Number(document.querySelector(`#${id}`).value)
+        ])
+      );
+
+      const ranked = dishes
+        .map(d => {
+          const distance = ranges.reduce((sum, key) => {
+            return sum + Math.pow(d.taste[key] - wanted[key], 2);
+          }, 0);
+
+          const maxDistance = 5 * 25;
+          const score = Math.max(
+            0,
+            Math.round((1 - distance / maxDistance) * 100)
+          );
+
+          return { d, score, distance };
+        })
+        .sort((a, b) => a.distance - b.distance)
+        .slice(0, 3);
+
+      document.querySelector("#matches").innerHTML = ranked
+        .map(({ d, score }, i) => `
+          <button
+            type="button"
+            class="match"
+            data-id="${d.id}"
+            style="color:inherit;text-align:left;width:100%;cursor:pointer">
+            <span class="score">${score}%</span>
+            <strong>${i + 1}. ${d.name}</strong>
+            <div style="color:var(--muted);font-size:.8rem;margin:2px 0 7px">
+              ${d.origin}
+            </div>
+            <div style="font-size:.87rem">${d.desc}</div>
+          </button>
+        `).join("");
+
+      document.querySelectorAll("#matches .match").forEach(btn => {
+        btn.addEventListener("click", () => {
+          selectDish(btn.dataset.id);
+          document.querySelector(".matrix")
+            .scrollIntoView({ behavior: "smooth", block: "center" });
+        });
+      });
+    }
+
+    document.querySelector("#hkPreset")
+      .addEventListener("click", () => {
+        const preset = {
+          sour: 1,
+          coconut: 5,
+          spice: 4,
+          fish: 3,
+          herb: 3
+        };
+
+        ranges.forEach(id => {
+          const input = document.querySelector(`#${id}`);
+          input.value = preset[id];
+          document.querySelector(`#${id}Out`).textContent = preset[id];
+        });
+
+        renderMatches();
+      });
+
+    renderAll();
+    renderMatches();
+  </script>
+</body>
+</html>
