@@ -14,6 +14,11 @@ This repository hosts a collection of informative, interactive web applications 
 - **Description**: A comprehensive recipe and usage guide for the evergrate ceramic plate grater.
 - **Language**: Traditional Chinese (Cantonese)
 
+### 3. [EuroStay｜歐洲平價連鎖酒店指南](./eurostay/)
+- **Directory**: `eurostay/`
+- **Description**: An interactive guide to Europe's budget hotel chains and hostels. Helps travelers filter, compare, and discover budget accommodations across Europe.
+- **Language**: English / Traditional Chinese
+
 ## Repository Structure
 
 ```
@@ -22,6 +27,8 @@ This repository hosts a collection of informative, interactive web applications 
 ├── laksa-universe/       # Laksa Universe web app
 │   └── index.html
 ├── evergrate/            # evergrate recipe web page
+│   └── index.html
+├── eurostay/             # EuroStay budget hotel guide
 │   └── index.html
 └── README.md
 ```
